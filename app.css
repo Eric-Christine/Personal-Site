@@ -4,6 +4,7 @@
 
 @keyframes spin {
   0% {transform:rotate(0deg);}
+  60% {transform: rotate(480deg);}
   100% {transform:rotate(360deg);}
 }
 
@@ -30,6 +31,8 @@
    opacity: 0%;
   }
 
+  60%{transform: translateX(50px);}
+
   100%{
     transform: translateX(0px);
   }
@@ -46,7 +49,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
-  
+
 }
 
 
@@ -56,7 +59,7 @@ header {
 
 #logo{
   height: 100px;
-  animation: spin ease-out .8s;
+  animation: spin ease-out 1s;
 
 }
 
@@ -79,7 +82,7 @@ a{
 .card {
     width: 300px;
     height: 450px;
-    border: 1px black solid;
+    /* border: 1px black solid; */
     border-radius: 10px;
     background: #ffbc49dc;
     box-shadow: 10px 15px #008080;
@@ -88,7 +91,7 @@ a{
 
     /* animation:  slideInFromLeft .8s none 0s iteration-count 1 ease-out; */
 
-    animation: slideInFromLeft .8s ease-out 0s 1;
+    animation: slideInFromLeft 1s ease-out 0s 1;
 
 }
 
@@ -143,12 +146,12 @@ footer{
   border-radius: 3px;
 }
 
-#message h2 {
+/* #message h2 {
   color: #ffa100;
   font-weight: bold;
   font-size: 16px;
   margin: 0 0 8px;
-}
+} */
 
 #message h1 {
   font-size: 22px;
@@ -190,11 +193,8 @@ footer{
   body,
   #message {
     margin-top: 0;
-    background: white;
+    background: #d4c5f8e5;
     box-shadow: none;
   }
 
-  body {
-    border-top: 16px solid #ffa100;
-  }
 }
