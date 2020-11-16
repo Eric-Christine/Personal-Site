@@ -7,8 +7,35 @@
   }
 }
 
+@keyframes slideInFromTop{
+  0%{
+   transform: translateY(-80px);
+   opacity: 0%;
+  }
+
+  100%{
+    transform: translateY(0px);
+  }
+}
+@keyframes slideInFromLeft{
+  0%{
+   transform: translateX(-400px);
+   opacity: 0%;
+  }
+
+  100%{
+    transform: translateX(0px);
+  }
+}
+
+@keyframes spin {
+  0% {transform:rotate(0deg);}
+  100% {transform:rotate(360deg);}
+}
+
+
 body {
-  background: #ECEFF1;
+  background: white;
   color: rgba(0, 0, 0, 0.87);
   /* font-family: Roboto, Helvetica, Arial, sans-serif; */
   font-family: 'Electrolize', sans-serif;
@@ -18,8 +45,16 @@ body {
   
 }
 
+
 header {
     text-align: center;
+}
+
+#logo{
+  height: 100px;
+  animation: spin ease-out .8s;
+
+
 }
 
 a{
@@ -47,6 +82,8 @@ a{
     box-shadow: 10px 15px teal;
     font-family: 'Electrolize', sans-serif;
     font-family: 'Overpass Mono', monospace;
+
+    animation:  slideInFromLeft .8s ease-out;
 
 }
 
