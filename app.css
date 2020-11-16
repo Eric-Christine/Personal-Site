@@ -1,4 +1,5 @@
-
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 /* animations */
 @keyframes bounce {
   50% {
@@ -9,10 +10,12 @@
 body {
   background: #ECEFF1;
   color: rgba(0, 0, 0, 0.87);
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  /* font-family: Roboto, Helvetica, Arial, sans-serif; */
+  font-family: 'Electrolize', sans-serif;
   margin: 0;
   padding: 0;
   text-align: center;
+  
 }
 
 header {
@@ -38,14 +41,18 @@ a{
 .card {
     width: 300px;
     height: 450px;
-    /* border: 2px black solid; */
+    border: 1px black solid;
     border-radius: 10px;
     background: rgb(246, 246, 224);
     box-shadow: 10px 15px teal;
+    font-family: 'Electrolize', sans-serif;
+    font-family: 'Overpass Mono', monospace;
+
 }
 
 .card_title{
-  font-size: 18px;
+  font-family: 'Electrolize', sans-serif;
+  font-size: 20px;
   padding-bottom: 10px;
 }
 .card a{
@@ -76,9 +83,11 @@ a{
     color: gray;
     padding: 20px;
     position: absolute;
+    
 }
 
 footer{
+  font-family: 'Electrolize', sans-serif;
     align-items: center;
 }
 
