@@ -1,4 +1,11 @@
 
+/* animations */
+@keyframes bounce {
+  50% {
+      -webkit-transform: translateY(-5px);
+  }
+}
+
 body {
   background: #ECEFF1;
   color: rgba(0, 0, 0, 0.87);
@@ -16,26 +23,6 @@ a{
     text-decoration: none;
     color: blue;
 }
-
-button{
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    height: 40px;
-}
-
-button a {
-    color: black;
-    padding: 10px 5px;
-}
-
-button:hover{
-    background-color: skyblue;
-    color: white;
-}
-
-
-
-
 .portfolio{
     display: flex;
     flex-flow: column;
@@ -43,18 +30,30 @@ button:hover{
 }
 
 .portfolio li{
-    font-size: 14px;
+    font-size: 16px;
     padding-bottom: 10px;
     text-align: left;
 }
 
 .card {
-    width: 200px;
-    height: 350px;
-    border: 2px black solid;
+    width: 300px;
+    height: 450px;
+    /* border: 2px black solid; */
     border-radius: 10px;
-    background: beige;
-    box-shadow: 5px 10px teal;
+    background: rgb(246, 246, 224);
+    box-shadow: 10px 15px teal;
+}
+
+.card_title{
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+.card a{
+  text-decoration: none;
+  color: black;
+}
+.card:hover {
+  animation: bounce 1s;
 }
 
 
