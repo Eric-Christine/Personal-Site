@@ -1,9 +1,10 @@
 console.log('connected')
 
-const logo = document.getElementsByClassName('logo')
-
-addEventListener('click', function (e) {
-    onclick = logo.add
+const projectCard = document.querySelector('.card')
+console.log(projectCard)
 
 
+
+projectCard.addEventListener('click', function spin() {
+    console.log('easter egg')
 })
