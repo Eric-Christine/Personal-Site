@@ -75,7 +75,14 @@ header {
   animation: spin ease-out 1s;
 }
 
+.welcome{
+  margin: 20px 100px;
+  text-align: left;
+}
 
+.missionStatement{
+  margin-top: 20px;
+}
 
 a{
     text-decoration: none;
