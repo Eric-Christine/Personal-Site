@@ -1,6 +1,10 @@
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 /* animations */
+/* 
+*{
+  box-sizing: border-box;
+} */
 
 @keyframes spin {
   0% {transform:rotate(0deg);}
@@ -65,8 +69,8 @@ body {
   height: 100vh;
 }
 
-
 header {
+    margin: 3%;
     text-align: center;
 }
 
@@ -76,7 +80,7 @@ header {
 }
 
 .welcome{
-  margin: 20px 100px;
+  margin: 0% 10%;
   text-align: left;
 }
 
@@ -219,6 +223,7 @@ h4{
 #projects{
   text-align: center;
   text-emphasis: strong;
+  font-size: 22px;
 }
 
 .card:active{
