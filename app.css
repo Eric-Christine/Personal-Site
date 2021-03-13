@@ -59,7 +59,7 @@
 
 
 body {
-  background: #d4c5f8e5;
+  background: rgba(191, 168, 244, 0.953);
   color: rgba(0, 0, 0, 0.87);
   /* font-family: Roboto, Helvetica, Arial, sans-serif; */
   font-family: 'Electrolize', sans-serif;
@@ -70,8 +70,12 @@ body {
 }
 
 header {
-    margin-top: 3vh;
+    margin: 0px 0px 0px;
+    padding: 10px 0px;
     text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: rgba(191, 168, 244, 0.953) ;
 }
 
 #logo{
