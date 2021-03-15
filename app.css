@@ -1,10 +1,10 @@
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 /* animations */
-/* 
+
 *{
   box-sizing: border-box;
-} */
+} 
 
 @keyframes spin {
   0% {transform:rotate(0deg);}
@@ -229,6 +229,9 @@ h4{
   text-align: center;
   text-emphasis: strong;
   font-size: 22px;
+  /* position: sticky; */
+  top: 0px;
+  
 }
 
 .card:active{
@@ -336,3 +339,5 @@ footer{
   }
 
 }
+
+
