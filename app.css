@@ -83,7 +83,7 @@ body {
   height: 100vh;
 }
 
-body a{
+body a, header a{
   color: #3ed82a;
 }
 
@@ -94,12 +94,12 @@ header {
     position: sticky;
     top: 0px;
     color: black;
-    background-color: rgba(214, 214, 214, 0.953) ;
+    background-color: rgba(75, 74, 74, 0.953) ;
 }
 
-header a {
+/* header a {
   color: blue;
-}
+} */
 
 
 
