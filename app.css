@@ -400,6 +400,10 @@ footer{
   font-size: 13px;
 }
 
+li{
+  list-style: none;
+}
+
 
 /* Media Queries */
 
