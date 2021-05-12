@@ -418,3 +418,107 @@ footer{
 
 }
 
+
+/* Progress Bars */
+
+@keyframes progressAnimationStrike {
+  from { width: 0 }
+  to   { width: 100% }
+}
+
+.progress-bar-container {
+  margin: 10px auto;
+  width: 500px;
+  text-align: center;
+}
+
+.progress2 {
+padding: 6px;
+border-radius: 30px;
+background: rgba(0, 0, 0, 0.25);  
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar2 {
+height: 18px;
+border-radius: 30px;
+background-image: 
+ linear-gradient(to bottom, rgba(16, 170, 241, 0.959), rgba(150, 230, 0, 0.918));
+transition: 0.4s linear;  
+transition-property: width, background-color;    
+}
+
+.progress-moved .progress-bar2 {
+width: 85%; 
+background-color: #EF476F;  
+animation: progressAnimation 6s;
+}
+
+.progress3 {
+  padding: 6px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.25);  
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+  }
+  
+  .progress-bar3 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+   linear-gradient(to bottom, rgba(83, 16, 241, 0.959), rgba(0, 215, 230, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+  
+  .progress-bar4 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+   linear-gradient(to bottom, rgba(241, 226, 16, 0.959), rgba(0, 215, 230, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+  
+  .progress-moved3 .progress-bar3 {
+  width: 70%; 
+  background-color: #EF476F;  
+  animation: progressAnimation 6s;
+  }
+  .progress-moved4 .progress-bar4 {
+  width: 50%; 
+  background-color: #EF476F;  
+  animation: progressAnimation 6s;
+  }
+
+.progress-moved5 .progress-bar5 {
+  width: 75%; 
+  background-color: #EF476F;  
+  animation: progressAnimation 6s;
+  }
+
+.progress-moved6 .progress-bar6 {
+  width: 85%; 
+  background-color: #EF476F;  
+  animation: progressAnimation 6s;
+  }
+
+.progress-bar5 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+    linear-gradient(to bottom, rgba(241, 80, 16, 0.959), rgba(246, 55, 41, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+.progress-bar6 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+    linear-gradient(to bottom, rgba(207, 16, 241, 0.959), rgba(199, 79, 179, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+
+.no-decoration{
+  list-style-type: none;
+}
