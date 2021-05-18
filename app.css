@@ -475,6 +475,16 @@ animation: progressAnimation 6s;
   background-color: #EF476F;  
   animation: progressAnimation 6s;
   }
+.progress-moved7 .progress-bar7 {
+  width: 35%; 
+  background-color: #47efd6;  
+  animation: progressAnimation 6s;
+  }
+.progress-moved8 .progress-bar8 {
+  width: 35%; 
+  background-color: #47efd6;  
+  animation: progressAnimation 6s;
+  }
 
 .progress-bar5 {
   height: 18px;
@@ -489,6 +499,22 @@ animation: progressAnimation 6s;
   border-radius: 30px;
   background-image: 
     linear-gradient(to bottom, rgba(207, 16, 241, 0.959), rgba(134, 26, 116, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+.progress-bar7 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+    linear-gradient(to bottom, rgba(16, 143, 241, 0.959), rgba(51, 244, 254, 0.918));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+  }
+.progress-bar8 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: 
+    linear-gradient(to bottom, rgba(241, 20, 16, 0.959), rgba(254, 220, 51, 0.918));
   transition: 0.4s linear;  
   transition-property: width, background-color;    
   }
