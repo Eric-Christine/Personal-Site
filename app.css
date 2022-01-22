@@ -77,6 +77,10 @@ body a, header a{
   color: #3ed82a;
 }
 
+p{
+  line-height: 1.4rem;
+}
+
 header {
     margin: 0px 0px 0px;
     padding: 10px 0px;
@@ -106,7 +110,7 @@ header {
 }
 
 .welcome{
-  margin: 0% 10%;
+  margin: 0% 15%;
   text-align: left;
 }
 
@@ -385,8 +389,7 @@ footer{
   .progress-bar-container{
     max-width: 290px;
     align-items: center;
-    /* padding-right: 20%; */
-  }
+padding: none;  }
 
   
 
@@ -521,6 +524,7 @@ animation: progressAnimation 6s;
 
 .no-decoration{
   list-style-type: none;
+  padding: none;
 }
 
 .skills{
