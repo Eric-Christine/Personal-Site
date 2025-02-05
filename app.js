@@ -1,9 +1,9 @@
 console.log('connected')
 
-let projectCard = document.querySelector('.card')
+let projectCards = document.querySelectorAll('.card');
 const logo = document.querySelector('#logo')
 
-projectCard.addEventListener('click', function () {
+projectCards.addEventListener('click', function () {
     console.log('easter egg')
 })
 
