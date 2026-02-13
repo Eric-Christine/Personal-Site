@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Green Energy Landscape Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f1ea;
+            color: #1a1a1a;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 350px;
+            max-height: 400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        }
+
+        .nav-btn.active {
+            background-color: #2f3e46;
+            color: #ffffff;
+            border-bottom: 2px solid #cad2c5;
+        }
+
+        .nav-btn {
+            transition: all 0.3s ease;
+        }
+
+        .state-toggle-btn {
+            transition: all 0.2s ease;
+        }
+
+        .state-toggle-btn.active {
+            background-color: #2f3e46;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .state-toggle-btn.inactive {
+            background-color: transparent;
+            color: #4b5563;
+        }
+
+        .state-toggle-btn.inactive:hover {
+            background-color: #e5e7eb;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f4f1ea;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #84a98c;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-[#2f3e46] text-white p-6 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-3xl font-bold tracking-tight">Status Report: 2026</h1>
+                <p class="text-gray-300 text-sm">US Green Tech, Solar & Lithium Markets</p>
+            </div>
+            <nav class="flex flex-wrap gap-2 justify-center">
+                <button onclick="switchTab('overview')" id="btn-overview"
+                    class="nav-btn active px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white">Overview</button>
+                <button onclick="switchTab('manufacturing')" id="btn-manufacturing"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">US
+                    vs China</button>
+                <button onclick="switchTab('states')" id="btn-states"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">State
+                    Comparison</button>
+                <button onclick="switchTab('consumer')" id="btn-consumer"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">Consumer
+                    Tech</button>
+                <button onclick="switchTab('ai_future')" id="btn-ai_future"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">AI
+                    & 2030</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto w-full p-4 md:p-8">
+
+        <!-- SECTION: OVERVIEW -->
+        <section id="overview" class="view-section animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Executive Summary: The 2026 Landscape</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    By early 2026, the US green transition has shifted from policy-driven optimism to hard economic
+                    reality. While expiring incentives threaten to tap the brakes, the momentum of solar deployment and
+                    the strategic necessity of lithium independence have created an unstoppable market force. The
+                    following data synthesizes the current state of the grid, manufacturing, and consumer adoption.
+                </p>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="card p-6 border-l-4 border-[#52796f]">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase">US Solar Capacity</h3>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-3xl font-bold text-[#2f3e46]">215 GW</span>
+                        <span class="ml-2 text-sm text-green-600 font-medium">↑ 18% YoY</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Surpassing 2024 projections</p>
+                </div>
+                <div class="card p-6 border-l-4 border-[#84a98c]">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase">Lithium Price Index</h3>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-3xl font-bold text-[#2f3e46]">$18.5k</span>
+                        <span class="ml-2 text-sm text-gray-500 font-medium">/ Ton LCE</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Stabilized post-2023 volatility</p>
+                </div>
+                <div class="card p-6 border-l-4 border-[#e07a5f]">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase">Battery Independence</h3>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-3xl font-bold text-[#2f3e46]">28%</span>
+                        <span class="ml-2 text-sm text-yellow-600 font-medium">Lagging Target</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">US domestic mfg share</p>
+                </div>
+                <div class="card p-6 border-l-4 border-[#3d405b]">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase">AI Power Demand</h3>
+                    <div class="mt-2 flex items-baseline">
+                        <span class="text-3xl font-bold text-[#2f3e46]">4.2%</span>
+                        <span class="ml-2 text-sm text-red-500 font-medium">↑ Doubled</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Of total US consumption</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-[#2f3e46]">Renewable Deployment Velocity</h3>
+                        <div class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600">GW Installed / Year</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="deploymentChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 italic">
+                        Solar continues to outpace wind due to falling panel costs, despite interconnection queue
+                        delays.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <div class="card p-6 bg-[#cad2c5]/20">
+                        <h3 class="font-bold text-[#2f3e46] mb-2">The "Economic Inevitability"</h3>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Even as federal tax credits begin their phase-down schedule, the Levelized Cost of Energy
+                            (LCOE) for utility-scale solar and storage remains below combined-cycle gas in 80% of US
+                            markets. The market has decoupled from ideology; red states lead green deployment simply
+                            because it is cheaper.
+                        </p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="font-bold text-[#2f3e46] mb-2">Supply Chain Realities</h3>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <span class="mr-2 text-lg">⚠️</span>
+                                <span><strong>Lithium Refining:</strong> While mining in Nevada (Thacker Pass) and
+                                    California (Salton Sea) has commenced commercial operations, the US still relies on
+                                    imports for 72% of processed cathode material.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2 text-lg">📉</span>
+                                <span><strong>Component Costs:</strong> Oversupply from Chinese factories kept 2025
+                                    prices historically low, benefitting US installers but hurting domestic panel
+                                    manufacturers.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: MANUFACTURING (US vs CHINA) -->
+        <section id="manufacturing" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Geopolitics: The Manufacturing Gap</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    China's dominance in the green technology supply chain remains the primary strategic risk for the US
+                    energy transition. While the "Battery Belt" in the US South has revitalized domestic production, the
+                    gap in raw capacity—and more importantly, refining capability—remains significant in 2026. Delaying
+                    adoption to wait for purely domestic chains risks missing 2030 climate targets entirely.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <div class="lg:col-span-2 card p-6">
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Global Battery Manufacturing Capacity (2020-2026)
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="manufacturingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="card p-6 bg-white border border-gray-100">
+                        <h4 class="font-bold text-[#e07a5f] mb-2">The Cost of Delay</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Protectionist policies have spurred investment, but attempting to completely exclude Chinese
+                            components has inflated US project costs by roughly 18% compared to the global average.
+                        </p>
+                        <div class="bg-gray-50 p-3 rounded text-center">
+                            <span class="block text-2xl font-bold text-gray-800">18%</span>
+                            <span class="text-xs text-gray-500">"Green Premium" for US Made</span>
+                        </div>
+                    </div>
+
+                    <div class="card p-6">
+                        <h4 class="font-bold text-[#2f3e46] mb-2">Processing vs. Assembly</h4>
+                        <p class="text-sm text-gray-600">
+                            The US is catching up in <strong>Module Assembly</strong> and <strong>Battery Pack</strong>
+                            creation. The critical bottleneck remains <strong>Mineral Processing</strong> (Refining
+                            Lithium, Cobalt, Graphite), where China holds an 85%+ market share.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <h3 class="text-lg font-bold text-[#2f3e46]">Strategic Risk Analysis</h3>
+                    <div class="flex gap-2 mt-2 md:mt-0">
+                        <button onclick="updateRisk('supply')"
+                            class="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-xs font-bold transition">Supply
+                            Chain</button>
+                        <button onclick="updateRisk('tech')"
+                            class="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-xs font-bold transition">Tech
+                            Obsolescence</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <ul id="risk-list" class="space-y-4"></ul>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 flex items-center justify-center">
+                        <div class="text-center">
+                            <h4 id="risk-highlight-title" class="text-xl font-bold text-[#2f3e46] mb-2">Supply Chain
+                                Fragility</h4>
+                            <p id="risk-highlight-desc" class="text-sm text-gray-600">The "just-in-time" global model is
+                                incompatible with current geopolitical tensions. 2026 has seen a shift to "just-in-case"
+                                inventory, increasing capital costs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STATE COMPARISON -->
+        <section id="states" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">State Comparison: Three Models</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    Three distinct models have emerged in the US energy landscape: <strong>Texas</strong> (Free Market),
+                    <strong>California</strong> (Policy & Mandate), and <strong>West Virginia</strong> (Legacy
+                    Protectionism). Each represents a different path—and different price tag—to the future.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center mb-8 gap-2 bg-gray-100 p-2 rounded-xl w-fit mx-auto">
+                <button onclick="updateStateComparison('texas')" id="btn-toggle-texas"
+                    class="state-toggle-btn active px-6 py-2 rounded-lg text-sm font-bold">TEXAS</button>
+                <button onclick="updateStateComparison('california')" id="btn-toggle-california"
+                    class="state-toggle-btn inactive px-6 py-2 rounded-lg text-sm font-bold">CALIFORNIA</button>
+                <button onclick="updateStateComparison('wv')" id="btn-toggle-wv"
+                    class="state-toggle-btn inactive px-6 py-2 rounded-lg text-sm font-bold">WEST VIRGINIA</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="state-chart-title" class="text-lg font-bold text-[#2f3e46]">Texas: 2026 Energy Mix</h3>
+                        <span id="state-badge"
+                            class="px-2 py-1 bg-green-100 text-green-800 text-xs font-bold rounded">Diversified</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="stateChart"></canvas>
+                    </div>
+                    <div id="state-chart-caption" class="mt-4 text-center text-sm text-gray-500">
+                        *Solar & Wind combined exceed gas capacity on 60% of days.
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card p-4 border-t-4 border-[#e9c46a]">
+                            <p class="text-xs text-gray-500 uppercase">Renewable Share</p>
+                            <h4 id="stat-renewables" class="text-2xl font-bold text-[#2f3e46]">47%</h4>
+                        </div>
+                        <div class="card p-4 border-t-4 border-[#6d6875]">
+                            <p class="text-xs text-gray-500 uppercase">Fossil Share</p>
+                            <h4 id="stat-fossil" class="text-2xl font-bold text-[#2f3e46]">43%</h4>
+                        </div>
+                    </div>
+
+                    <div id="state-narrative-card" class="card p-6 border-l-4 border-[#e07a5f]">
+                        <h3 id="state-narrative-title" class="font-bold text-[#2f3e46] mb-2">The Texas Miracle</h3>
+                        <p id="state-narrative-text" class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            Texas has surpassed California in utility-scale battery deployment. The ERCOT grid operates
+                            as a free-market proving ground where wind and solar dominate simply because they are the
+                            lowest marginal cost producers.
+                        </p>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-xs text-gray-500 uppercase mb-2">Economic Impact</h4>
+                            <p id="state-impact-text" class="text-sm text-[#2f3e46] font-medium">
+                                Wholesale prices often dip negative at midday due to solar oversupply, incentivizing
+                                massive battery arbitrage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: CONSUMER TECH -->
+        <section id="consumer" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Consumer Resilience: The "Prosumer" Rise</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    While residential rooftop solar growth has slowed due to high interest rates and net-metering
+                    rollbacks (NEM 3.0 fallout), a new category has exploded: <strong>Portable & Plug-and-Play
+                        Storage</strong>. Brands like EcoFlow and Anker have normalized "energy independence in a box,"
+                    bridging the gap between camping gear and whole-home backup.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="card p-6 lg:col-span-1 border-t-4 border-[#3d405b]">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-[#2f3e46]">The Portable Revolution</h3>
+                        <span class="text-xs bg-[#3d405b] text-white px-2 py-1 rounded">Trend</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-6">
+                        Chinese consumer green tech (EcoFlow, Bluetti) dominates 90% of the portable power station
+                        market. These units have evolved from USB chargers to 240V systems capable of running HVAC.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                1</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold">Grid Distrust</h4>
+                                <p class="text-xs text-gray-500">Weather extremes drive purchases more than
+                                    "eco-consciousness."</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                2</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold">LFP Chemistry</h4>
+                                <p class="text-xs text-gray-500">Shift to Lithium Iron Phosphate allows 3000+ cycles (10
+                                    years) vs old Li-ion.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                3</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold">Smart Home Integration</h4>
+                                <p class="text-xs text-gray-500">New "Smart Panels" allow these batteries to plug
+                                    directly into breaker boxes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6 lg:col-span-2">
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Consumer Energy Adoption (2022-2026)</h3>
+                    <div class="chart-container">
+                        <canvas id="consumerChart"></canvas>
+                    </div>
+                    <div class="flex gap-4 mt-4 justify-center">
+                        <button onclick="toggleConsumerView('sales')"
+                            class="text-xs px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Sales Volume</button>
+                        <button onclick="toggleConsumerView('capacity')"
+                            class="text-xs px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Storage Capacity
+                            (GWh)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AI & FUTURE -->
+        <section id="ai_future" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">AI & The 2030 Horizon</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    The defining conflict of the late 2020s is the collision between Data Center growth and Grid
+                    capacity. Big Tech (Microsoft, Google, Amazon) is no longer just buying offsets; they are actively
+                    financing new generation assets.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="card p-6">
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Electricity Demand: The AI Spike</h3>
+                    <div class="chart-container">
+                        <canvas id="aiChart"></canvas>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Data centers are projected to consume 8% of total US electricity by 2030, necessitating a
+                        massive build-out of firm, clean power (Nuclear, Geothermal).
+                    </p>
+                </div>
+
+                <div class="card p-6 bg-[#2f3e46] text-white">
+                    <h3 class="text-lg font-bold mb-4 border-b border-gray-600 pb-2">Realist Outlook: 2030</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Renewable Grid Share</span>
+                                <span class="font-bold text-[#84a98c]">Proj: 48%</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-[#84a98c] h-2 rounded-full" style="width: 48%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">EV Market Share (New Sales)</span>
+                                <span class="font-bold text-[#e07a5f]">Proj: 42%</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2">
+                                <div class="bg-[#e07a5f] h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">Slowed by infrastructure lag, missing 50% target.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-sm mt-4 mb-2 text-white">The "New Base Load"</h4>
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                By 2030, the concept of "Base Load" will effectively disappear, replaced by
+                                "Dispatchable Reliability." Gas plants will remain essential but run less often. SMRs
+                                (Small Modular Reactors) will likely not be online at scale until 2032+, leaving Solar +
+                                Storage + Gas as the 2030 reality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-6 border border-gray-200">
+                <h3 class="font-bold text-[#2f3e46] mb-3">Big Tech Sourcing Strategy</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="text-2xl mb-1">☢️</div>
+                        <h4 class="font-bold text-sm">Nuclear Revival</h4>
+                        <p class="text-xs text-gray-500">Restarting dormant plants (e.g., Palisades) & SMR funding.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="text-2xl mb-1">🌋</div>
+                        <h4 class="font-bold text-sm">Geothermal</h4>
+                        <p class="text-xs text-gray-500">Next-gen drilling for firm, clean power (Project InnerSpace).
+                        </p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="text-2xl mb-1">🔋</div>
+                        <h4 class="font-bold text-sm">Behind-the-Meter</h4>
+                        <p class="text-xs text-gray-500">Co-locating data centers directly with solar farms to bypass
+                            transmission queues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#2f3e46] text-gray-400 py-8 text-center text-sm">
+        <p>&copy; 2026 Interactive Energy Report. Generated for Analysis.</p>
+    </footer>
+
+    <script>
+        const state = {
+            currentTab: 'overview',
+            consumerMetric: 'sales',
+            comparisonState: 'texas'
+        };
+
+        function switchTab(tabId) {
+            state.currentTab = tabId;
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-[#2f3e46]', 'text-white');
+                btn.classList.add('bg-white/10');
+            });
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('bg-white/10');
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        const reportData = {
+            overview: {
+                labels: ['2022', '2023', '2024', '2025', '2026 (Est)'],
+                solar: [20, 32, 45, 58, 65],
+                wind: [10, 9, 8, 11, 12]
+            },
+            manufacturing: {
+                labels: ['2020', '2022', '2024', '2026', '2028', '2030'],
+                china: [750, 1200, 2100, 3500, 4800, 6000],
+                us: [50, 110, 280, 550, 900, 1400],
+                eu: [80, 180, 400, 700, 1100, 1600]
+            },
+            texas: {
+                labels: ['Natural Gas', 'Solar', 'Wind', 'Nuclear', 'Coal', 'Storage'],
+                data: [38, 22, 25, 8, 5, 2],
+                color: '#e07a5f',
+                renewables: '47%',
+                fossil: '43%',
+                title: 'The Texas Miracle',
+                caption: '*Solar & Wind combined exceed gas capacity on 60% of days.',
+                badge: { text: 'Free Market', class: 'bg-green-100 text-green-800' },
+                narrative: 'Texas has surpassed California in utility-scale battery deployment. The ERCOT grid operates as a free-market proving ground where wind and solar dominate simply because they are the lowest marginal cost producers.',
+                impact: 'Wholesale prices often dip negative at midday due to solar oversupply, incentivizing massive battery arbitrage.'
+            },
+            california: {
+                labels: ['Solar', 'Natural Gas', 'Hydro', 'Nuclear', 'Wind', 'Geothermal'],
+                data: [32, 30, 12, 8, 8, 10],
+                renewables: '62%',
+                fossil: '30%',
+                title: 'The Policy Lab',
+                caption: '*California leads the world in battery duration, effectively "solving" the Duck Curve.',
+                badge: { text: 'Mandate Driven', class: 'bg-blue-100 text-blue-800' },
+                narrative: 'Unlike Texas\'s free market, California uses aggressive mandates and subsidies. The result is massive solar adoption and the world\'s largest fleet of 4-hour Li-ion batteries, though at the cost of the nation\'s highest retail electricity rates.',
+                impact: 'High rates fund grid modernization, but "NEM 3.0" has shifted the market from rooftop solar to utility-scale storage.'
+            },
+            wv: {
+                labels: ['Coal', 'Natural Gas', 'Hydro/Other', 'Wind', 'Solar'],
+                data: [82, 12, 3, 2, 1],
+                color: '#6d6875',
+                renewables: '6%',
+                fossil: '94%',
+                title: 'Legacy Dependence',
+                caption: '*West Virginia remains one of the few states generating >80% electricity from coal.',
+                badge: { text: 'Legacy Grid', class: 'bg-red-100 text-red-800' },
+                narrative: 'West Virginia illustrates the inertia of legacy infrastructure. Despite the falling cost of renewables, policy protectionism and lack of transmission infrastructure have kept the state anchored to coal, isolating it from the broader green investment boom.',
+                impact: 'While generation costs are theoretically stable, lack of diversity exposes ratepayers to fuel price volatility and carbon regulatory risk.'
+            },
+            consumer: {
+                labels: ['2022', '2023', '2024', '2025', '2026'],
+                sales: [1.2, 2.5, 4.1, 5.8, 7.2],
+                capacity: [0.8, 2.1, 4.5, 8.2, 12.5]
+            },
+            ai: {
+                labels: ['2022', '2024', '2026', '2028', '2030'],
+                traditional: [3900, 3950, 4000, 4050, 4100],
+                datacenters: [80, 140, 260, 450, 680]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDeploymentChart();
+            initMfgChart();
+            initStateChart();
+            initConsumerChart();
+            initAIChart();
+            updateRisk('supply');
+        });
+
+        function initDeploymentChart() {
+            const ctx = document.getElementById('deploymentChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: reportData.overview.labels,
+                    datasets: [
+                        { label: 'Solar GW Added', data: reportData.overview.solar, backgroundColor: '#e9c46a', borderRadius: 4 },
+                        { label: 'Wind GW Added', data: reportData.overview.wind, backgroundColor: '#2a9d8f', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } },
+                    scales: { x: { stacked: false }, y: { beginAtZero: true, title: { display: true, text: 'Gigawatts (GW)' } } }
+                }
+            });
+        }
+
+        function initMfgChart() {
+            const ctx = document.getElementById('manufacturingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: reportData.manufacturing.labels,
+                    datasets: [
+                        { label: 'China Capacity', data: reportData.manufacturing.china, borderColor: '#e76f51', backgroundColor: 'rgba(231, 111, 81, 0.1)', fill: true, tension: 0.4 },
+                        { label: 'US Capacity', data: reportData.manufacturing.us, borderColor: '#264653', borderDash: [5, 5], tension: 0.4 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: 'Battery Mfg Capacity (GWh)' }, tooltip: { mode: 'index', intersect: false } }
+                }
+            });
+        }
+
+        let stateChartInstance;
+        function initStateChart() {
+            const ctx = document.getElementById('stateChart').getContext('2d');
+            stateChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: reportData.texas.labels,
+                    datasets: [{ data: reportData.texas.data, backgroundColor: ['#e76f51', '#e9c46a', '#2a9d8f', '#264653', '#6d6875', '#8ab17d'], borderWidth: 0 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'right' } } }
+            });
+        }
+
+        function updateStateComparison(stateKey) {
+            const data = reportData[stateKey];
+            state.comparisonState = stateKey;
+            const buttons = ['texas', 'california', 'wv'];
+            buttons.forEach(btn => {
+                const el = document.getElementById(`btn-toggle-${btn}`);
+                if (btn === stateKey) { el.classList.add('active'); el.classList.remove('inactive'); }
+                else { el.classList.add('inactive'); el.classList.remove('active'); }
+            });
+            stateChartInstance.data.labels = data.labels;
+            stateChartInstance.data.datasets[0].data = data.data;
+            if (stateKey === 'wv') {
+                stateChartInstance.data.datasets[0].backgroundColor = ['#3d405b', '#e76f51', '#457b9d', '#2a9d8f', '#e9c46a'];
+            } else if (stateKey === 'california') {
+                stateChartInstance.data.datasets[0].backgroundColor = ['#e9c46a', '#e76f51', '#457b9d', '#264653', '#2a9d8f', '#a8dadc'];
+            } else {
+                stateChartInstance.data.datasets[0].backgroundColor = ['#e76f51', '#e9c46a', '#2a9d8f', '#264653', '#6d6875', '#8ab17d'];
+            }
+            stateChartInstance.update();
+            let titleText = '';
+            if (stateKey === 'texas') titleText = 'Texas: 2026 Energy Mix';
+            else if (stateKey === 'california') titleText = 'California: 2026 Energy Mix';
+            else titleText = 'West Virginia: 2026 Energy Mix';
+            document.getElementById('state-chart-title').innerText = titleText;
+            document.getElementById('state-chart-caption').innerText = data.caption;
+            document.getElementById('stat-renewables').innerText = data.renewables;
+            document.getElementById('stat-fossil').innerText = data.fossil;
+            document.getElementById('state-narrative-title').innerText = data.title;
+            document.getElementById('state-narrative-text').innerText = data.narrative;
+            document.getElementById('state-impact-text').innerText = data.impact;
+            const badge = document.getElementById('state-badge');
+            badge.innerText = data.badge.text;
+            badge.className = `px-2 py-1 text-xs font-bold rounded ${data.badge.class}`;
+            const narrativeCard = document.getElementById('state-narrative-card');
+            narrativeCard.classList.remove('border-[#e07a5f]', 'border-[#6d6875]', 'border-blue-400');
+            if (stateKey === 'texas') narrativeCard.style.borderLeftColor = '#e07a5f';
+            else if (stateKey === 'wv') narrativeCard.style.borderLeftColor = '#6d6875';
+            else narrativeCard.style.borderLeftColor = '#457b9d';
+        }
+
+        let consumerChartInstance;
+        function initConsumerChart() {
+            const ctx = document.getElementById('consumerChart').getContext('2d');
+            consumerChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: reportData.consumer.labels,
+                    datasets: [{ label: 'Sales Volume (Millions)', data: reportData.consumer.sales, borderColor: '#2a9d8f', backgroundColor: '#2a9d8f', tension: 0.3, pointRadius: 6, pointHoverRadius: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function toggleConsumerView(metric) {
+            state.consumerMetric = metric;
+            const isSales = metric === 'sales';
+            consumerChartInstance.data.datasets[0].label = isSales ? 'Sales Volume (Millions)' : 'Storage Capacity (GWh)';
+            consumerChartInstance.data.datasets[0].data = isSales ? reportData.consumer.sales : reportData.consumer.capacity;
+            consumerChartInstance.data.datasets[0].borderColor = isSales ? '#2a9d8f' : '#e76f51';
+            consumerChartInstance.data.datasets[0].backgroundColor = isSales ? '#2a9d8f' : '#e76f51';
+            consumerChartInstance.update();
+        }
+
+        function initAIChart() {
+            const ctx = document.getElementById('aiChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: reportData.ai.labels,
+                    datasets: [
+                        { label: 'AI Data Centers', data: reportData.ai.datacenters, borderColor: '#e63946', backgroundColor: 'rgba(230, 57, 70, 0.7)', fill: 'origin' },
+                        { label: 'General Grid Demand', data: reportData.ai.traditional, borderColor: '#a8dadc', backgroundColor: 'rgba(168, 218, 220, 0.4)', fill: '-1' }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { y: { stacked: true, title: { display: true, text: 'TWh Consumption' } } },
+                    plugins: { tooltip: { mode: 'index', intersect: false } }
+                }
+            });
+        }
+
+        function updateRisk(type) {
+            const list = document.getElementById('risk-list');
+            const title = document.getElementById('risk-highlight-title');
+            const desc = document.getElementById('risk-highlight-desc');
+            list.innerHTML = '';
+            if (type === 'supply') {
+                const items = [
+                    { t: 'Graphite Choke Point', d: 'China controls 90% of refining; export bans in late 2025 spiked prices.' },
+                    { t: 'Lithium Volatility', d: 'While currently stable, lack of US refining leaves market exposed to single-source failure.' },
+                    { t: 'Component Tariffs', d: 'New 2026 tariff walls on inverters increased residential install costs by 12%.' }
+                ];
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = "p-3 border-l-4 border-red-400 bg-white shadow-sm cursor-pointer hover:bg-red-50 transition";
+                    li.innerHTML = `<h5 class="font-bold text-sm text-[#2f3e46]">${item.t}</h5>`;
+                    li.onclick = () => { title.innerText = item.t; desc.innerText = item.d; };
+                    list.appendChild(li);
+                });
+                title.innerText = items[0].t; desc.innerText = items[0].d;
+            } else {
+                const items = [
+                    { t: 'Solid State Batteries', d: 'Commercially viable by 2028? Current Li-ion factories risk early obsolescence.' },
+                    { t: 'Panel Efficiency', d: 'Perovskite tandems hitting market in 2027 could devalue current inventory.' },
+                    { t: 'Grid Interconnection', d: 'Old transformers cannot handle bidirectional flow from modern V2G tech.' }
+                ];
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = "p-3 border-l-4 border-blue-400 bg-white shadow-sm cursor-pointer hover:bg-blue-50 transition";
+                    li.innerHTML = `<h5 class="font-bold text-sm text-[#2f3e46]">${item.t}</h5>`;
+                    li.onclick = () => { title.innerText = item.t; desc.innerText = item.d; };
+                    list.appendChild(li);
+                });
+                title.innerText = items[0].t; desc.innerText = items[0].d;
+            }
+        }
+    </script>
+</body>
+
+</html>
