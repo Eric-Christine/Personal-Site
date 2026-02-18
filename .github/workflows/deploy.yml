@@ -18,5 +18,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/ericchristine.com/
+          server-dir: /public_html/
           dangerous-clean-slate: true
