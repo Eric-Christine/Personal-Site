@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Eric Christine Blog</title>
+    <link>https://ericchristine.com/blog/</link>
+    <description>Posts from Eric Christine.</description>
+    <language>en-us</language>
+
+    <item>
+      <title>BYD is Leading the Global New Energy Vehicle Market</title>
+      <link>https://ericchristine.com/blog/posts/BYD.html</link>
+      <guid>https://ericchristine.com/blog/posts/BYD.html</guid>
+      <pubDate>Wed, 18 Feb 2026 06:00:00 GMT</pubDate>
+      <description>How BYD's NEV scale, battery leadership, and expansion strategy position it for global dominance.</description>
+    </item>
+
+    <item>
+      <title>U.S. Food Banks Face Their Most Dire Test Yet</title>
+      <link>https://ericchristine.com/blog/posts/us-food-banks-dire-test-2026.html</link>
+      <guid>https://ericchristine.com/blog/posts/us-food-banks-dire-test-2026.html</guid>
+      <pubDate>Tue, 17 Feb 2026 12:00:00 GMT</pubDate>
+      <description>Food insecurity, funding pressure, and resilience planning in U.S. food-bank operations.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chicago Donation Drop-Off Locator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Public+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Chicago Donation Finder</p>
+        <h1>Find the nearest drop-off in minutes</h1>
+      </div>
+      <p class="subhead">
+        Search by ZIP or address, filter by items, then compare nearby options by distance, hours, and access.
+      </p>
+    </header>
+
+    <section class="controls">
+      <form id="searchForm" class="search-row">
+        <label class="sr-only" for="searchInput">Address or ZIP</label>
+        <input id="searchInput" type="text" placeholder="Enter Chicago ZIP or address" />
+        <button type="submit">Search</button>
+        <button type="button" id="nearMeButton" class="ghost">Use my location</button>
+      </form>
+
+      <div class="filter-grid">
+        <fieldset id="itemFilters" class="filter-block">
+          <legend>Donating</legend>
+        </fieldset>
+
+        <label class="filter-block">
+          <span>Drop-off type</span>
+          <select id="binTypeFilter">
+            <option value="all">All</option>
+            <option value="bin">Bin</option>
+            <option value="staffed">Staffed</option>
+            <option value="retail_partner">Retail partner</option>
+          </select>
+        </label>
+
+        <label class="filter-block">
+          <span>Access</span>
+          <select id="accessFilter">
+            <option value="all">All</option>
+            <option value="drive-up">Drive-up</option>
+            <option value="walk-up">Walk-up</option>
+          </select>
+        </label>
+
+        <label class="filter-block">
+          <span>Environment</span>
+          <select id="environmentFilter">
+            <option value="all">All</option>
+            <option value="indoors">Indoors</option>
+            <option value="outdoors">Outdoors</option>
+          </select>
+        </label>
+
+        <label class="filter-inline">
+          <input id="openNowFilter" type="checkbox" />
+          <span>Open now</span>
+        </label>
+      </div>
+    </section>
+
+    <main class="layout">
+      <section class="results-pane">
+        <div class="results-header">
+          <h2>Nearby options</h2>
+          <p id="resultsMeta"></p>
+        </div>
+        <div id="resultsList" class="results-list"></div>
+      </section>
+
+      <section class="map-pane">
+        <div id="map"></div>
+        <article id="detailCard" class="detail-card detail-card-hidden">
+          <a id="detailStreetViewLink" class="streetview-frame detail-streetview-link" target="_blank" rel="noreferrer">
+            <img id="detailStreetViewImage" class="streetview-image" alt="" loading="lazy" />
+            <span class="streetview-fallback">Street View unavailable for this address</span>
+          </a>
+          <h3 id="detailName"></h3>
+          <p id="detailAddress"></p>
+          <p id="detailInfo"></p>
+          <p id="detailItems"></p>
+          <p id="detailRestrictions"></p>
+          <p id="detailHours"></p>
+          <p id="detailLastVerified"></p>
+          <div class="detail-actions">
+            <a id="detailDirections" target="_blank" rel="noreferrer">Get directions</a>
+            <button id="detailReport" type="button" class="ghost">Report issue</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <dialog id="reportDialog">
+      <form id="reportForm">
+        <h3>Report an issue</h3>
+        <p id="reportLocationName"></p>
+        <label>
+          Type
+          <select id="reportType" required>
+            <option value="bin_missing">Bin missing</option>
+            <option value="bin_full">Bin full/overflowing</option>
+            <option value="hours_changed">Hours changed</option>
+            <option value="items_changed">Accepted items changed</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>
+          Notes
+          <textarea id="reportNote" rows="4" placeholder="Add details (optional)"></textarea>
+        </label>
+        <menu>
+          <button type="button" id="cancelReport" class="ghost">Cancel</button>
+          <button type="submit">Submit report</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <p id="toast" class="toast" role="status" aria-live="polite"></p>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
