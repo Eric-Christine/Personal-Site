@@ -19,4 +19,4 @@ jobs:
           username: public_html@ericchristine.com
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
