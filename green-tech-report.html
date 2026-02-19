@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 Green Energy Landscape Report</title>
+    <link rel="icon" type="image/svg+xml" href="/green-tech-favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -107,6 +108,12 @@
                     Comparison</button>
                 <button onclick="switchTab('consumer')" id="btn-consumer"
                     class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">Consumer
+                    Tech</button>
+                <button onclick="switchTab('policy')" id="btn-policy"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">Policy
+                    & Capital</button>
+                <button onclick="switchTab('emerging')" id="btn-emerging"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">Emerging
                     Tech</button>
                 <button onclick="switchTab('ai_future')" id="btn-ai_future"
                     class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">AI
@@ -507,7 +514,136 @@
                 </div>
             </div>
         </section>
+        <!-- SECTION: POLICY & CAPITAL -->
+        <section id="policy" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Policy & Capital: The IRA Era</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    The Inflation Reduction Act (IRA) fundamentally restructured how green infrastructure is financed.
+                    By 2026, the traditional "Tax Equity" bottleneck has been largely bypassed by the transferable tax
+                    credit market. This democratization of capital has accelerated deployment but also introduced new
+                    compliance risks regarding domestic content and prevailing wage requirements.
+                </p>
+            </div>
 
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Market Transformation -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Tax Credit Monetization ($ Billions)</h3>
+                    <div class="chart-container">
+                        <canvas id="policyChart"></canvas>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4 italic">
+                        The explosion of the transferability market (Sections 6418) allows developers to sell credits
+                        for cash, trading at roughly $0.92 on the dollar in 2026.
+                    </p>
+                </div>
+
+                <!-- Deep Dive Text -->
+                <div class="flex flex-col gap-6">
+                    <div class="card p-6 border-l-4 border-[#264653]">
+                        <h3 class="font-bold text-[#2f3e46] mb-2">The "Domestic Content" Maze</h3>
+                        <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                            Securing the 10% bonus credit for domestic content remains the holy grail for developers.
+                            However, the strict IRS tracing rules for manufactured products (like solar tracking torque
+                            tubes and battery cells) mean less than 15% of 2026 utility-scale projects actually quality,
+                            despite the explosion of new US factories.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <span class="block text-xl font-bold text-gray-800">15%</span>
+                                <span class="text-xs text-gray-500">Qualifying Projects</span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <span class="block text-xl font-bold text-green-600">+10%</span>
+                                <span class="text-xs text-gray-500">ITC/PTC Bonus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 bg-[#2a9d8f]/10">
+                        <h3 class="font-bold text-[#2f3e46] mb-2">Tariff Walls & Trade Action</h3>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Section 301 and antidumping/countervailing duty (AD/CVD) tariffs on Southeast Asian solar
+                            imports have reshaped logistics. Chinese tier-1 manufacturers have aggressively relocated
+                            module assembly to the US (Texas and Ohio), but cell manufacturing remains stubbornly
+                            offshore.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: EMERGING TECH -->
+        <section id="emerging" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Emerging Tech: Beyond Lithium & Silicon</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    While current deployments rely heavily on silicon panels and lithium-ion batteries, the R&D pipeline
+                    has delivered commercial breakthroughs in 2026. Long-Duration Energy Storage (LDES) and
+                    next-generation solar architectures are shifting from pilot plants to utility-scale purchase orders.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <!-- Highlight: LDES -->
+                <div class="card p-6 lg:col-span-1 border-t-4 border-[#e9c46a]">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg text-[#2f3e46]">The Multi-Day Grid</h3>
+                        <span class="text-xs bg-[#e9c46a] text-black px-2 py-1 rounded">Scale Phase</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-6">
+                        Lithium-ion is economically capped at 4 hours. To solve multi-day weather events (derecho
+                        storms, winter freezes), utilities are contracting massive iron-air and thermal storage parks.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                            <h4 class="text-sm font-bold text-[#e76f51]">Iron-Air Batteries</h4>
+                            <p class="text-xs text-gray-500 mt-1">Form Energy's commercial rollouts in the Midwest hit
+                                100-hour duration at fraction of Li-ion cost. Uses reversible rusting.</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                            <h4 class="text-sm font-bold text-[#2a9d8f]">Perovskite Tandems</h4>
+                            <p class="text-xs text-gray-500 mt-1">Layering perovskite over standard silicon pushes panel
+                                efficiency from 22% to 29%, transforming rooftop economics for constrained spaces.</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                            <h4 class="text-sm font-bold text-[#457b9d]">Solid State Lithium</h4>
+                            <p class="text-xs text-gray-500 mt-1">Initial EV rollouts display double energy density and
+                                eliminate fire risk, though scaling high-volume manufacturing remains delayed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6 lg:col-span-2">
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Storage Technology Cost Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="emergingChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-4">Estimated Capital Cost ($/kWh capacity). Note the
+                        sharp drop for durations > 24 hrs for Iron-Air.</p>
+                </div>
+            </div>
+
+            <div class="card p-6 bg-gradient-to-r from-[#2f3e46] to-[#354f52] text-white">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-2/3 mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold mb-2">The Geothermal "Moonshot" Achieved</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Using advanced horizontal drilling tech ported from the shale gas industry, Next-Gen
+                            Geothermal companies (Fervo, Sage) have successfully demonstrated baseload, zero-carbon
+                            power capability in Nevada and Utah at scale, without needing traditional volcanic heat
+                            sources.
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 text-center border-l md:border-l-2 border-white/20 pl-4">
+                        <h4 class="text-5xl font-bold text-[#a8dadc]">400<span class="text-xl font-normal">MW</span>
+                        </h4>
+                        <p class="text-xs uppercase tracking-wider text-gray-300 mt-2">New 2026 PPAs Signed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -590,6 +726,15 @@
                 sales: [1.2, 2.5, 4.1, 5.8, 7.2],
                 capacity: [0.8, 2.1, 4.5, 8.2, 12.5]
             },
+            policy: {
+                labels: ['2023', '2024', '2025', '2026 (Est)'],
+                traditional: [20, 18, 14, 11],
+                transferable: [0, 8, 28, 48]
+            },
+            emerging: {
+                labels: ['Li-ion (4hr)', 'Iron-Air (100hr)', 'Pumped Hydro (10hr)', 'Vanadium Flow (8hr)', 'Thermal (12hr)'],
+                data: [300, 48, 250, 400, 180]
+            },
             ai: {
                 labels: ['2022', '2024', '2026', '2028', '2030'],
                 traditional: [3900, 3950, 4000, 4050, 4100],
@@ -602,6 +747,8 @@
             initMfgChart();
             initStateChart();
             initConsumerChart();
+            initPolicyChart();
+            initEmergingChart();
             initAIChart();
             updateRisk('supply');
         });
@@ -734,6 +881,46 @@
                     responsive: true, maintainAspectRatio: false,
                     scales: { y: { stacked: true, title: { display: true, text: 'TWh Consumption' } } },
                     plugins: { tooltip: { mode: 'index', intersect: false } }
+                }
+            });
+        }
+
+        function initPolicyChart() {
+            const ctx = document.getElementById('policyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: reportData.policy.labels,
+                    datasets: [
+                        { label: 'Traditional Tax Equity', data: reportData.policy.traditional, backgroundColor: '#264653', borderRadius: 4 },
+                        { label: 'Transferable Market (6418)', data: reportData.policy.transferable, backgroundColor: '#2a9d8f', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false } },
+                    scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, title: { display: true, text: '$ Billions' } } }
+                }
+            });
+        }
+
+        function initEmergingChart() {
+            const ctx = document.getElementById('emergingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: reportData.emerging.labels,
+                    datasets: [{
+                        label: 'Estimated Capital Cost ($/kWh)',
+                        data: reportData.emerging.data,
+                        backgroundColor: ['#e76f51', '#e9c46a', '#457b9d', '#264653', '#8ab17d'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Cost per kWh Capacity' } } }
                 }
             });
         }
