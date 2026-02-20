@@ -18,7 +18,7 @@
   --card-teal: #79d0b8;
   --card-red: #8e3a51;
   --card-orange: #f49f77;
-  --card-green: #9ed78d;
+  --card-green: #88c777;
   --accent: #5ef2b3;
   --accent-2: #6dc8ff;
 }
@@ -308,8 +308,8 @@ a:hover {
   height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
-  background: linear-gradient(160deg, #bbebac, var(--card-green));
-  box-shadow: 10px 15px #44672f;
+  background: linear-gradient(160deg, #a6da95, var(--card-green));
+  box-shadow: 10px 15px #3b5e2a;
   font-family: 'Electrolize', sans-serif;
   font-family: 'Overpass Mono', monospace;
 
@@ -429,7 +429,7 @@ h4 {
 
 .card7:active {
   transform: translateY(4px) translateX(3px);
-  box-shadow: 5px 6px #44672f;
+  box-shadow: 5px 6px #3b5e2a;
 }
 
 
