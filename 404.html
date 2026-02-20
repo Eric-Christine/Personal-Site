@@ -336,7 +336,7 @@
       document.getElementById('mobile-game-container').style.display = 'flex';
 
       const script = document.createElement('script');
-      script.src = './games/mobile-doodle-jump.js';
+      script.src = '/games/mobile-doodle-jump.js';
       document.body.appendChild(script);
     } else {
       // Ensure the old script selects the renamed desktop canvas. We need to alias it or rename it.
@@ -346,7 +346,7 @@
       document.getElementById('desktop-game').id = 'game'; // Steal the ID so skyline-sprint works out of the box
 
       const script = document.createElement('script');
-      script.src = './games/skyline-sprint.js';
+      script.src = '/games/skyline-sprint.js';
       document.body.appendChild(script);
     }
   </script>
