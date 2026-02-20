@@ -118,6 +118,9 @@
                 <button onclick="switchTab('ai_future')" id="btn-ai_future"
                     class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">AI
                     & 2030</button>
+                <button onclick="switchTab('sources')" id="btn-sources"
+                    class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#354f52] hover:text-white bg-white/10">📚
+                    Sources</button>
             </nav>
         </div>
     </header>
@@ -142,10 +145,10 @@
                 <div class="card p-6 border-l-4 border-[#52796f]">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase">US Solar Capacity</h3>
                     <div class="mt-2 flex items-baseline">
-                        <span class="text-3xl font-bold text-[#2f3e46]">215 GW</span>
-                        <span class="ml-2 text-sm text-green-600 font-medium">↑ 18% YoY</span>
+                        <span class="text-3xl font-bold text-[#2f3e46]">250+ GW</span>
+                        <span class="ml-2 text-sm text-green-600 font-medium">↑ 20% YoY</span>
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">Surpassing 2024 projections</p>
+                    <p class="text-xs text-gray-400 mt-2">Per SEIA / Wood Mackenzie Q4 2025</p>
                 </div>
                 <div class="card p-6 border-l-4 border-[#84a98c]">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase">Lithium Price Index</h3>
@@ -158,10 +161,10 @@
                 <div class="card p-6 border-l-4 border-[#e07a5f]">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase">Battery Independence</h3>
                     <div class="mt-2 flex items-baseline">
-                        <span class="text-3xl font-bold text-[#2f3e46]">28%</span>
+                        <span class="text-3xl font-bold text-[#2f3e46]">~14%</span>
                         <span class="ml-2 text-sm text-yellow-600 font-medium">Lagging Target</span>
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">US domestic mfg share</p>
+                    <p class="text-xs text-gray-400 mt-2">US share of global cell production (IEA)</p>
                 </div>
                 <div class="card p-6 border-l-4 border-[#3d405b]">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase">AI Power Demand</h3>
@@ -205,7 +208,8 @@
                                 <span class="mr-2 text-lg">⚠️</span>
                                 <span><strong>Lithium Refining:</strong> While mining in Nevada (Thacker Pass) and
                                     California (Salton Sea) has commenced commercial operations, the US still relies on
-                                    imports for 72% of processed cathode material.</span>
+                                    imports for the majority of processed cathode material. China controls ~60-65% of
+                                    global lithium refining (S&P Global).</span>
                             </li>
                             <li class="flex items-start">
                                 <span class="mr-2 text-lg">📉</span>
@@ -217,6 +221,9 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: SEIA, Wood Mackenzie, Lazard LCOE+ 2025,
+                EIA AEO 2025 · <a href="#" onclick="switchTab('sources'); return false;"
+                    class="underline hover:text-gray-600">View All Sources</a></p>
         </section>
 
         <!-- SECTION: MANUFACTURING (US vs CHINA) -->
@@ -258,7 +265,8 @@
                         <p class="text-sm text-gray-600">
                             The US is catching up in <strong>Module Assembly</strong> and <strong>Battery Pack</strong>
                             creation. The critical bottleneck remains <strong>Mineral Processing</strong> (Refining
-                            Lithium, Cobalt, Graphite), where China holds an 85%+ market share.
+                            Lithium, Cobalt, Graphite), where China holds 75-100% market share depending on the mineral
+                            (IEA, CSIS).
                         </p>
                     </div>
                 </div>
@@ -291,9 +299,11 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: IEA Global EV Outlook 2025, Benchmark
+                Mineral Intelligence, CSIS Critical Minerals Report · <a href="#"
+                    onclick="switchTab('sources'); return false;" class="underline hover:text-gray-600">View All
+                    Sources</a></p>
         </section>
-
-        <!-- SECTION: STATE COMPARISON -->
         <section id="states" class="view-section hidden animate-fade-in">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">State Comparison: Three Models</h2>
@@ -357,17 +367,21 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: EIA Electricity Monthly, ERCOT Market
+                Reports, CPUC NEM 3.0 Data · <a href="#" onclick="switchTab('sources'); return false;"
+                    class="underline hover:text-gray-600">View All Sources</a></p>
         </section>
-
-        <!-- SECTION: CONSUMER TECH -->
         <section id="consumer" class="view-section hidden animate-fade-in">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Consumer Resilience: The "Prosumer" Rise</h2>
                 <p class="text-gray-600 max-w-3xl leading-relaxed">
                     While residential rooftop solar growth has slowed due to high interest rates and net-metering
-                    rollbacks (NEM 3.0 fallout), a new category has exploded: <strong>Portable & Plug-and-Play
-                        Storage</strong>. Brands like EcoFlow and Anker have normalized "energy independence in a box,"
-                    bridging the gap between camping gear and whole-home backup.
+                    rollbacks (NEM 3.0 fallout), a new category has exploded: <strong>Portable Power Stations &
+                        Plug-and-Play Storage</strong>. The global portable power station market grew from ~$590M in
+                    2024
+                    to an estimated $700M+ in 2025 (Fortune Business Insights). Brands like EcoFlow (~17% market share)
+                    and Jackery (~16%) have normalized "energy independence in a box," bridging camping gear and
+                    whole-home backup.
                 </p>
             </div>
 
@@ -378,8 +392,9 @@
                         <span class="text-xs bg-[#3d405b] text-white px-2 py-1 rounded">Trend</span>
                     </div>
                     <p class="text-sm text-gray-600 mb-6">
-                        Chinese consumer green tech (EcoFlow, Bluetti) dominates 90% of the portable power station
-                        market. These units have evolved from USB chargers to 240V systems capable of running HVAC.
+                        Chinese-founded brands (EcoFlow, Bluetti, Jackery) hold the majority of the portable power
+                        station market. These units have evolved from USB chargers to 240V systems capable of running
+                        HVAC.
                     </p>
                     <div class="space-y-4">
                         <div class="flex items-center">
@@ -416,7 +431,7 @@
                 </div>
 
                 <div class="card p-6 lg:col-span-2">
-                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Consumer Energy Adoption (2022-2026)</h3>
+                    <h3 class="text-lg font-bold text-[#2f3e46] mb-4">Portable Power Station Adoption (2022-2026)</h3>
                     <div class="chart-container">
                         <canvas id="consumerChart"></canvas>
                     </div>
@@ -429,9 +444,10 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: Fortune Business Insights Portable Power
+                Station Report 2025, 6W Research · <a href="#" onclick="switchTab('sources'); return false;"
+                    class="underline hover:text-gray-600">View All Sources</a></p>
         </section>
-
-        <!-- SECTION: AI & FUTURE -->
         <section id="ai_future" class="view-section hidden animate-fade-in">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">AI & The 2030 Horizon</h2>
@@ -513,8 +529,10 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: Lawrence Berkeley National Lab, Gartner,
+                EIA Short-Term Energy Outlook · <a href="#" onclick="switchTab('sources'); return false;"
+                    class="underline hover:text-gray-600">View All Sources</a></p>
         </section>
-        <!-- SECTION: POLICY & CAPITAL -->
         <section id="policy" class="view-section hidden animate-fade-in">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Policy & Capital: The IRA Era</h2>
@@ -572,9 +590,11 @@
                     </div>
                 </div>
             </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: Internal Revenue Service (Section 6418),
+                BloombergNEF, US Dept. of Commerce AD/CVD rulings · <a href="#"
+                    onclick="switchTab('sources'); return false;" class="underline hover:text-gray-600">View All
+                    Sources</a></p>
         </section>
-
-        <!-- SECTION: EMERGING TECH -->
         <section id="emerging" class="view-section hidden animate-fade-in">
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">Emerging Tech: Beyond Lithium & Silicon</h2>
@@ -642,6 +662,121 @@
                         <p class="text-xs uppercase tracking-wider text-gray-300 mt-2">New 2026 PPAs Signed</p>
                     </div>
                 </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-6 text-right italic">Sources: Form Energy, Fervo Energy, DOE LDES
+                initiatives · <a href="#" onclick="switchTab('sources'); return false;"
+                    class="underline hover:text-gray-600">View All Sources</a></p>
+        </section>
+
+        <!-- SECTION: SOURCES -->
+        <section id="sources" class="view-section hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-[#2f3e46] mb-3">📚 Sources & References</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    This report synthesizes data from the following primary sources. Where exact 2026 figures are
+                    unavailable, near-term projections and the latest actuals from authoritative bodies have been used.
+                    Figures labeled "Est" are editorial estimates based on trend extrapolation from cited data.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="card p-6 border-l-4 border-[#52796f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[1] SEIA / Wood Mackenzie — U.S. Solar Market Insight</h3>
+                    <p class="text-sm text-gray-600 mb-2">Cumulative US solar capacity exceeding 250 GW by end of 2025;
+                        ~44 GWdc projected additions in 2026.</p>
+                    <a href="https://www.seia.org/research-resources/solar-market-insight-report-2025-q4"
+                        target="_blank" class="text-xs text-blue-600 underline">seia.org</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#52796f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[2] U.S. Energy Information Administration (EIA)</h3>
+                    <p class="text-sm text-gray-600 mb-2">Short-Term Energy Outlook & Annual Energy Outlook 2025. Used
+                        for electricity mix projections, ERCOT data, and LCOE benchmarks.</p>
+                    <a href="https://www.eia.gov/outlooks/steo/" target="_blank"
+                        class="text-xs text-blue-600 underline">eia.gov</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#84a98c]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[3] S&P Global Commodity Insights</h3>
+                    <p class="text-sm text-gray-600 mb-2">Lithium carbonate price assessments and global lithium market
+                        surplus/deficit analysis for 2025-2026.</p>
+                    <a href="https://www.spglobal.com/commodityinsights/" target="_blank"
+                        class="text-xs text-blue-600 underline">spglobal.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#84a98c]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[4] IEA — Global EV Outlook & Batteries Report</h3>
+                    <p class="text-sm text-gray-600 mb-2">China's 86%+ dominance in global battery cell production; US
+                        manufacturing share benchmarks.</p>
+                    <a href="https://www.iea.org/reports/global-ev-outlook-2025" target="_blank"
+                        class="text-xs text-blue-600 underline">iea.org</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#e07a5f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[5] Benchmark Mineral Intelligence</h3>
+                    <p class="text-sm text-gray-600 mb-2">Battery supply chain analysis, gigafactory tracker, and
+                        lithium price forecasts ($15-17k/ton range for 2025).</p>
+                    <a href="https://www.benchmarkminerals.com/" target="_blank"
+                        class="text-xs text-blue-600 underline">benchmarkminerals.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#e07a5f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[6] Lazard — LCOE+ 2025</h3>
+                    <p class="text-sm text-gray-600 mb-2">Levelized Cost of Energy analysis showing unsubsidized
+                        utility-scale solar ($38-78/MWh) vs gas combined cycle ($48-107/MWh).</p>
+                    <a href="https://www.lazard.com/research-insights/levelized-cost-of-energyplus/" target="_blank"
+                        class="text-xs text-blue-600 underline">lazard.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#3d405b]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[7] Lawrence Berkeley National Laboratory</h3>
+                    <p class="text-sm text-gray-600 mb-2">Data center electricity consumption projections: 4.4% of US
+                        total in 2023, rising to 6.7-12% by 2028.</p>
+                    <a href="https://eta.lbl.gov/publications/united-states-data-center-energy" target="_blank"
+                        class="text-xs text-blue-600 underline">lbl.gov</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#3d405b]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[8] Gartner — Data Center Energy Report</h3>
+                    <p class="text-sm text-gray-600 mb-2">AI-optimized servers consuming ~21% of total data center power
+                        in 2025; projected 7.8% of US electricity by 2030.</p>
+                    <a href="https://www.gartner.com/en" target="_blank"
+                        class="text-xs text-blue-600 underline">gartner.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#e9c46a]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[9] Fortune Business Insights — Portable Power Station
+                        Market</h3>
+                    <p class="text-sm text-gray-600 mb-2">Global market size grew from ~$590M (2024) to ~$700M+ (2025).
+                        EcoFlow ~17% and Jackery ~16% market share.</p>
+                    <a href="https://www.fortunebusinessinsights.com/portable-power-station-market-109968"
+                        target="_blank" class="text-xs text-blue-600 underline">fortunebusinessinsights.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#e9c46a]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[10] Fervo Energy — Cape Station Updates</h3>
+                    <p class="text-sm text-gray-600 mb-2">500 MW next-gen geothermal project in Utah, fully contracted
+                        via PPAs with SCE (320 MW), Google (115 MW), Shell (31 MW), and Clean Power Alliance (48 MW).
+                    </p>
+                    <a href="https://fervoenergy.com/" target="_blank"
+                        class="text-xs text-blue-600 underline">fervoenergy.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#2a9d8f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[11] Form Energy — Iron-Air Battery Deployments</h3>
+                    <p class="text-sm text-gray-600 mb-2">First commercial 100-hour iron-air batteries deployed in
+                        Minnesota (Oct 2025); additional 2026 projects in NY, GA, VA.</p>
+                    <a href="https://formenergy.com/" target="_blank"
+                        class="text-xs text-blue-600 underline">formenergy.com</a>
+                </div>
+                <div class="card p-6 border-l-4 border-[#2a9d8f]">
+                    <h3 class="font-bold text-[#2f3e46] mb-1">[12] CSIS — Critical Minerals & Supply Chain</h3>
+                    <p class="text-sm text-gray-600 mb-2">Analysis of China's 75-100% control of mineral processing
+                        (graphite, cobalt, lithium refining). Export control impact assessments.</p>
+                    <a href="https://www.csis.org/analysis/critical-minerals" target="_blank"
+                        class="text-xs text-blue-600 underline">csis.org</a>
+                </div>
+            </div>
+
+            <div class="card p-6 mt-8 bg-gray-50 border border-gray-200">
+                <h3 class="font-bold text-[#2f3e46] mb-2">⚠️ Methodology Note</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    This report was compiled in February 2026. Where possible, data reflects published actuals from Q4
+                    2025 or Q1 2026 filings. Some 2026 figures marked "(Est)" reflect editorial projections based on
+                    trend extrapolation from the sources above. Chart data represents approximations for visual
+                    storytelling and should be referenced back to primary sources for precision analysis. Consumer
+                    "Sales Volume" figures represent estimated global portable power station unit shipments in millions.
+                </p>
             </div>
         </section>
     </main>
@@ -850,7 +985,7 @@
                 type: 'line',
                 data: {
                     labels: reportData.consumer.labels,
-                    datasets: [{ label: 'Sales Volume (Millions)', data: reportData.consumer.sales, borderColor: '#2a9d8f', backgroundColor: '#2a9d8f', tension: 0.3, pointRadius: 6, pointHoverRadius: 8 }]
+                    datasets: [{ label: 'Portable Power Station Sales (M Units)', data: reportData.consumer.sales, borderColor: '#2a9d8f', backgroundColor: '#2a9d8f', tension: 0.3, pointRadius: 6, pointHoverRadius: 8 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
@@ -859,7 +994,7 @@
         function toggleConsumerView(metric) {
             state.consumerMetric = metric;
             const isSales = metric === 'sales';
-            consumerChartInstance.data.datasets[0].label = isSales ? 'Sales Volume (Millions)' : 'Storage Capacity (GWh)';
+            consumerChartInstance.data.datasets[0].label = isSales ? 'Portable Power Station Sales (M Units)' : 'Cumulative Storage Capacity (GWh)';
             consumerChartInstance.data.datasets[0].data = isSales ? reportData.consumer.sales : reportData.consumer.capacity;
             consumerChartInstance.data.datasets[0].borderColor = isSales ? '#2a9d8f' : '#e76f51';
             consumerChartInstance.data.datasets[0].backgroundColor = isSales ? '#2a9d8f' : '#e76f51';
