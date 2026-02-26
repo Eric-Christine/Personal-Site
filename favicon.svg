@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#2a3d80" />
+
+  <g transform="translate(32 32)">
+    <path
+      d="M-18-19h30l-5 8c6 1 11 6.4 11 14c0 9.1-7.2 16-16 16h-20l5-9c-3.2-3.3-5-7.8-5-13c0-9 7.2-16 16-16h0z"
+      fill="#000"
+    />
+    <text
+      x="0"
+      y="1"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="10.8"
+      font-weight="700"
+      letter-spacing="0.4"
+      fill="#f5f5f5"
+    >
+      EJC
+    </text>
+  </g>
+</svg>
