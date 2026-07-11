@@ -808,6 +808,116 @@ footer {
   color: #ffffff !important;
 }
 
+/* ========== Email Development Proof Section ========== */
+
+.email-proof-showcase {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px 40px;
+}
+
+.email-proof-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: 24px;
+  align-items: center;
+  max-width: 920px;
+  width: 100%;
+  padding: 28px;
+  background: linear-gradient(135deg, rgba(27, 47, 74, 0.74), rgba(10, 20, 31, 0.95));
+  border: 1px solid rgba(94, 242, 179, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.42), 0 0 60px rgba(94, 242, 179, 0.08);
+  animation: slideInFromLeft 1s ease-in-out 0s 1;
+}
+
+.email-proof-content {
+  text-align: left;
+}
+
+.email-proof-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.email-proof-facts span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 11px;
+  color: #d8fff0;
+  border: 1px solid rgba(94, 242, 179, 0.25);
+  border-radius: 999px;
+  background: rgba(94, 242, 179, 0.08);
+  font-size: 12px;
+}
+
+.email-mini-preview {
+  width: min(100%, 320px);
+  margin: 0 auto;
+  padding: 18px;
+  background: #f8fbf6;
+  border-radius: 10px;
+  box-shadow: 12px 16px 0 rgba(94, 242, 179, 0.16);
+}
+
+.email-mini-header {
+  width: 54%;
+  height: 24px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  background: #246b45;
+}
+
+.email-mini-hero {
+  height: 128px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #dfeecf, #f6c38f);
+}
+
+.email-mini-line,
+.email-mini-title,
+.email-mini-copy,
+.email-mini-button {
+  border-radius: 999px;
+}
+
+.email-mini-line {
+  width: 44%;
+  height: 10px;
+  margin: 0 auto 10px;
+  background: #d95b45;
+}
+
+.email-mini-title {
+  width: 78%;
+  height: 18px;
+  margin: 0 auto 16px;
+  background: #173f2d;
+}
+
+.email-mini-copy {
+  height: 9px;
+  margin-bottom: 8px;
+  background: #b4c8bd;
+}
+
+.email-mini-copy.short {
+  width: 72%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.email-mini-button {
+  width: 46%;
+  height: 30px;
+  margin: 18px auto 0;
+  background: #d95b45;
+}
+
 /* Blog section responsive */
 @media (max-width: 600px) {
   .blog-card-content {
@@ -832,5 +942,10 @@ footer {
     margin-left: 0;
     margin-top: 12px;
     width: fit-content;
+  }
+
+  .email-proof-card {
+    grid-template-columns: 1fr;
+    padding: 22px;
   }
 }

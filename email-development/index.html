@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7">
+  <title>Email Code, Unpacked — HTML &amp; CSS Email Structure</title>
+  <meta name="description" content="A visual, practical guide to the HTML and CSS structure behind reliable responsive emails.">
+  <meta property="og:title" content="Email Code, Unpacked">
+  <meta property="og:description" content="Learn the HTML and CSS structure behind reliable responsive emails.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ericchristine.com/email-development/">
+  <meta property="og:image" content="https://ericchristine.com/email-development/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Email Code, Unpacked">
+  <meta name="twitter:description" content="Learn the HTML and CSS structure behind reliable responsive emails.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Email Code, Unpacked home">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span>Email Code, Unpacked</span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+      <a href="#anatomy">Anatomy</a>
+      <a href="#code-lab">Code lab</a>
+      <a href="#css-rules">CSS rules</a>
+      <a href="#checklist">Checklist</a>
+    </nav>
+    <a class="home-link" href="../index.html">EricChristine.com <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span>01</span> A field guide to email development</p>
+        <h1>Email HTML is<br><em>built differently.</em></h1>
+        <p class="hero-lede">Web pages can rely on modern layout tools. Emails travel through dozens of inboxes, so dependable code uses tables, inline styles, and careful fallbacks.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#anatomy">Explore the structure <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#code-lab">Jump to the code <span aria-hidden="true">→</span></a>
+        </div>
+        <dl class="hero-stats" aria-label="Email development fundamentals">
+          <div><dt>600px</dt><dd>Typical desktop width</dd></div>
+          <div><dt>Tables</dt><dd>Reliable layout system</dd></div>
+          <div><dt>Inline</dt><dd>Safest core CSS</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-visual reveal" role="img" aria-label="Layered diagram of an email document">
+        <div class="code-window">
+          <div class="window-bar">
+            <span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span>
+            <span>campaign.html</span>
+          </div>
+          <pre aria-hidden="true"><code><span class="code-muted">&lt;!doctype html&gt;</span>
+<span class="code-blue">&lt;html&gt;</span>
+  <span class="code-blue">&lt;head&gt;</span>
+    <span class="code-muted">client fixes + responsive CSS</span>
+  <span class="code-blue">&lt;/head&gt;</span>
+  <span class="code-blue">&lt;body&gt;</span>
+    <span class="code-green">&lt;table role="presentation"&gt;</span>
+      <span class="code-yellow">&lt;tr&gt;&lt;td&gt;</span>
+        your email modules
+      <span class="code-yellow">&lt;/td&gt;&lt;/tr&gt;</span>
+    <span class="code-green">&lt;/table&gt;</span>
+  <span class="code-blue">&lt;/body&gt;</span>
+<span class="code-blue">&lt;/html&gt;</span></code></pre>
+        </div>
+        <div class="floating-note note-one"><span>01</span>Document setup</div>
+        <div class="floating-note note-two"><span>02</span>Layout tables</div>
+        <div class="floating-note note-three"><span>03</span>Content modules</div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Core email development concepts">
+      <div>
+        <span>Structure first</span><i>✦</i><span>Inline the essentials</span><i>✦</i><span>Design for blocked images</span><i>✦</i><span>Test real inboxes</span><i>✦</i><span>Structure first</span><i>✦</i><span>Inline the essentials</span>
+      </div>
+    </section>
+
+    <section id="anatomy" class="anatomy section-shell section-pad">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span>02</span> The anatomy</p>
+        <h2>Think in nested<br>containers.</h2>
+        <p>An email is a document shell containing one full-width wrapper, one centered container, and a stack of modular rows.</p>
+      </div>
+
+      <div class="anatomy-grid">
+        <ol class="layer-list" aria-label="Email code layers">
+          <li class="layer-card reveal">
+            <span class="layer-number">01</span>
+            <div><h3>Document shell</h3><p>Doctype, language, character set, viewport, title, and email-client fixes live here.</p></div>
+            <code>&lt;head&gt;</code>
+          </li>
+          <li class="layer-card reveal">
+            <span class="layer-number">02</span>
+            <div><h3>Hidden preheader</h3><p>A short inbox preview appears after the subject line, but stays hidden in the opened email.</p></div>
+            <code class="preheader-pattern">display:none; max-height:0; overflow:hidden; mso-hide:all;</code>
+          </li>
+          <li class="layer-card reveal">
+            <span class="layer-number">03</span>
+            <div><h3>Outer wrapper</h3><p>A 100%-wide presentation table supplies the page background and centers the email.</p></div>
+            <code>width="100%"</code>
+          </li>
+          <li class="layer-card reveal">
+            <span class="layer-number">04</span>
+            <div><h3>Content container</h3><p>A fluid table with a 600px maximum keeps the message readable on desktop and mobile.</p></div>
+            <code>max-width:600px</code>
+          </li>
+          <li class="layer-card reveal">
+            <span class="layer-number">05</span>
+            <div><h3>Content modules</h3><p>Header, hero, copy, buttons, dividers, and footer become separate table rows.</p></div>
+            <code>&lt;tr&gt;&lt;td&gt;</code>
+          </li>
+        </ol>
+
+        <figure class="email-blueprint reveal">
+          <figcaption>Visual nesting model</figcaption>
+          <span class="blueprint-label">Browser / inbox viewport</span>
+          <div class="blueprint-wrapper">
+            <span>100% wrapper table</span>
+            <div class="blueprint-container">
+              <span>600px container table</span>
+              <div class="blueprint-row blueprint-header">Logo row</div>
+              <div class="blueprint-row blueprint-hero">Hero image</div>
+              <div class="blueprint-row blueprint-body">Headline + body copy</div>
+              <div class="blueprint-row blueprint-cta">CTA button</div>
+              <div class="blueprint-row blueprint-footer">Footer + unsubscribe</div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="code-lab" class="code-lab section-pad">
+      <div class="section-shell">
+        <div class="code-lab-heading reveal">
+          <div>
+            <p class="eyebrow eyebrow-light"><span>03</span> Code lab</p>
+            <h2>A reliable<br>starter skeleton.</h2>
+          </div>
+          <p>Switch between four core pieces. The examples are intentionally small so the structure is easy to reuse.</p>
+        </div>
+
+        <div class="code-explorer reveal">
+          <div class="code-tabs" role="tablist" aria-label="Email code examples">
+            <button role="tab" aria-selected="true" aria-controls="panel-structure" id="tab-structure" data-tab="structure" tabindex="0">HTML structure</button>
+            <button role="tab" aria-selected="false" aria-controls="panel-button" id="tab-button" data-tab="button" tabindex="-1">CTA button</button>
+            <button role="tab" aria-selected="false" aria-controls="panel-responsive" id="tab-responsive" data-tab="responsive" tabindex="-1">Responsive CSS</button>
+            <button role="tab" aria-selected="false" aria-controls="panel-outlook" id="tab-outlook" data-tab="outlook" tabindex="-1">Outlook fixes</button>
+          </div>
+
+          <div class="code-panel" id="panel-structure" role="tabpanel" aria-labelledby="tab-structure" data-panel="structure">
+            <div class="code-panel-top"><span>email.html</span><button class="copy-button" type="button" aria-live="polite">Copy code</button></div>
+            <pre tabindex="0" aria-label="HTML structure code sample"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;meta name="color-scheme" content="light dark"&gt;
+  &lt;meta name="supported-color-schemes" content="light dark"&gt;
+  &lt;title&gt;Email title&lt;/title&gt;
+  &lt;style&gt;
+    @media screen and (max-width: 620px) {
+      .container { width: 100% !important; }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="margin:0; background:#f3f3f3;"&gt;
+  &lt;div style="display:none; max-height:0; overflow:hidden; mso-hide:all;"&gt;
+    Inbox preview text goes here.
+  &lt;/div&gt;
+  &lt;table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"&gt;
+    &lt;tr&gt;
+      &lt;td align="center"&gt;
+        &lt;table role="presentation" width="600"
+          cellpadding="0" cellspacing="0" border="0" class="container"
+          style="width:600px; max-width:100%;"&gt;
+          &lt;tr&gt;
+            &lt;td style="padding:32px;"&gt;Email content&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <div class="code-panel" id="panel-button" role="tabpanel" aria-labelledby="tab-button" data-panel="button" hidden>
+            <div class="code-panel-top"><span>button.html</span><button class="copy-button" type="button" aria-live="polite">Copy code</button></div>
+            <pre tabindex="0" aria-label="CTA button code sample"><code>&lt;table role="presentation" cellspacing="0" cellpadding="0" border="0"&gt;
+  &lt;tr&gt;
+    &lt;td bgcolor="#173f35" style="padding:14px 24px; border-radius:4px;"&gt;
+      &lt;a href="https://example.com"
+        style="display:block; color:#ffffff;
+        font:bold 16px Arial, sans-serif;
+        text-decoration:none; border-radius:4px;"&gt;
+        Read the guide
+      &lt;/a&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+
+          <div class="code-panel" id="panel-responsive" role="tabpanel" aria-labelledby="tab-responsive" data-panel="responsive" hidden>
+            <div class="code-panel-top"><span>responsive.css</span><button class="copy-button" type="button" aria-live="polite">Copy code</button></div>
+            <pre tabindex="0" aria-label="Responsive CSS code sample"><code>@media screen and (max-width: 620px) {
+  .container {
+    width: 100% !important;
+  }
+
+  .mobile-padding {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .stack-column {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .fluid-image {
+    width: 100% !important;
+    height: auto !important;
+  }
+}</code></pre>
+          </div>
+
+          <div class="code-panel" id="panel-outlook" role="tabpanel" aria-labelledby="tab-outlook" data-panel="outlook" hidden>
+            <div class="code-panel-top"><span>outlook.html</span><button class="copy-button" type="button" aria-live="polite">Copy code</button></div>
+            <pre tabindex="0" aria-label="Outlook fixes code sample"><code>&lt;!--[if mso]&gt;
+&lt;table role="presentation" width="600" cellpadding="0"
+  cellspacing="0" border="0" align="center"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+&lt;![endif]--&gt;
+
+&lt;table role="presentation" width="100%" cellpadding="0"
+  cellspacing="0" border="0" class="container"
+  style="width:100%; max-width:600px;"&gt;
+  &lt;tr&gt;&lt;td&gt;Email content&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!--[if mso]&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+
+&lt;!--[if mso]&gt;
+&lt;xml xmlns:o="urn:schemas-microsoft-com:office:office"&gt;
+  &lt;o:OfficeDocumentSettings&gt;
+    &lt;o:PixelsPerInch&gt;96&lt;/o:PixelsPerInch&gt;
+  &lt;/o:OfficeDocumentSettings&gt;
+&lt;/xml&gt;
+&lt;![endif]--&gt;</code></pre>
+          </div>
+
+          <aside class="code-notes" aria-label="Why this code works">
+            <p class="note-kicker">Why it works</p>
+            <div><span>01</span><p><strong>role="presentation"</strong> tells assistive technology that layout tables are not data tables.</p></div>
+            <div><span>02</span><p><strong>HTML attributes</strong> such as width and align provide fallbacks for older clients.</p></div>
+            <div><span>03</span><p><strong>Inline styles</strong> protect essential formatting; putting CTA padding on the table cell keeps its height in Outlook.</p></div>
+            <div><span>04</span><p><strong>Media queries</strong> enhance small screens without being required for the email to remain readable.</p></div>
+            <div><span>05</span><p><strong>Dark-mode metadata</strong> signals supported schemes, but clients may still auto-invert colors—use logos and images that remain clear on light and dark backgrounds.</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="css-rules" class="rules section-shell section-pad">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span>04</span> CSS rules of thumb</p>
+        <h2>Progressive enhancement,<br>not perfect parity.</h2>
+        <p>Inbox engines disagree. Protect the message first, then add enhancements for clients that support them.</p>
+      </div>
+
+      <div class="rules-grid">
+        <article class="rule-card rule-do reveal">
+          <p class="rule-label">Do this</p>
+          <h3>Inline the visual essentials.</h3>
+          <ul>
+            <li>Fonts, colors, spacing, and borders</li>
+            <li>Explicit image dimensions</li>
+            <li>Web-safe fallback font stacks</li>
+            <li>Large, easy-to-tap links and buttons</li>
+          </ul>
+          <div class="mini-code">&lt;img src="hero.jpg" width="600" height="280" alt="Explore our summer collection" <span>style=</span>"display:block; width:100%; height:auto; color:#173f35; font:bold 18px Arial, sans-serif;"&gt;</div>
+        </article>
+
+        <article class="rule-card rule-careful reveal">
+          <p class="rule-label">Use carefully</p>
+          <h3>Treat modern CSS as a bonus.</h3>
+          <ul>
+            <li>Flexbox and grid for core layout</li>
+            <li>Background images without fallback colors</li>
+            <li>Web fonts without safe alternatives</li>
+            <li>Hover states as the only interaction cue</li>
+          </ul>
+          <div class="support-meter"><span>Email support varies</span><div><i></i></div></div>
+        </article>
+
+        <article class="rule-card rule-why reveal">
+          <p class="rule-label">The goal</p>
+          <h3>One message, many renderers.</h3>
+          <p>Apple Mail, Gmail, and Outlook can interpret the same code differently. A good build stays understandable everywhere—even when visual details change.</p>
+          <div class="client-list"><span>Apple Mail</span><span>Gmail</span><span>Outlook</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="workflow section-pad">
+      <div class="section-shell">
+        <div class="workflow-heading reveal">
+          <p class="eyebrow eyebrow-light"><span>05</span> The workflow</p>
+          <h2>From brief to inbox.</h2>
+        </div>
+        <ol class="workflow-steps">
+          <li class="reveal"><span>01</span><div><h3>Plan</h3><p>Define the single goal, content hierarchy, and primary CTA.</p></div></li>
+          <li class="reveal"><span>02</span><div><h3>Build</h3><p>Create modules with tables and add essential inline styles.</p></div></li>
+          <li class="reveal"><span>03</span><div><h3>Adapt</h3><p>Add fluid widths, stacking classes, and mobile spacing.</p></div></li>
+          <li class="reveal"><span>04</span><div><h3>Test</h3><p>Check real clients, dark mode, images off, and live links.</p></div></li>
+          <li class="reveal"><span>05</span><div><h3>Send</h3><p>Review the plain-text version, tracking, and final audience.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="checklist" class="checklist section-shell section-pad">
+      <div class="checklist-card reveal">
+        <div>
+          <p class="eyebrow"><span>06</span> Before you send</p>
+          <h2>The five-minute<br>quality check.</h2>
+          <p>Reliable email development is mostly disciplined checking. Walk through this list before every launch.</p>
+        </div>
+        <ul class="check-list">
+          <li><span>✓</span><p><strong>Content</strong>Subject, preheader, dates, prices, and names are accurate.</p></li>
+          <li><span>✓</span><p><strong>Access</strong>Headings are logical, alt text is useful, and contrast is strong.</p></li>
+          <li><span>✓</span><p><strong>Layout</strong>The email works at 320px and still reads with images blocked.</p></li>
+          <li><span>✓</span><p><strong>Links</strong>Every CTA, logo, social link, and unsubscribe URL works.</p></li>
+          <li><span>✓</span><p><strong>Fallbacks</strong>Plain text is present and the design degrades gracefully.</p></li>
+          <li><span>✓</span><p><strong>File size</strong>Keep the HTML under roughly 102KB so Gmail does not clip content or hide the unsubscribe link.</p></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">&lt;/&gt;</span><span>Email Code, Unpacked</span></a>
+      <p>A practical guide to building emails that survive the inbox.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#anatomy">Anatomy</a><a href="#code-lab">Code lab</a><a href="#checklist">Checklist</a><a href="../index.html">Portfolio ↗</a>
+    </div>
+    <p class="footer-credit">Built by Eric Christine</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
