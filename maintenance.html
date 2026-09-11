@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#060b15">
+  <title>Site Update in Progress | Eric Christine</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #060b15;
+      --surface: rgba(11, 20, 36, 0.78);
+      --surface-edge: rgba(109, 200, 255, 0.22);
+      --text: #e7edf8;
+      --text-soft: #aebbd0;
+      --mint: #5ef2b3;
+      --blue: #6dc8ff;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(31, 63, 116, 0.8), transparent 34rem),
+        radial-gradient(circle at 90% 12%, rgba(44, 47, 104, 0.78), transparent 30rem),
+        var(--background);
+      font-family: "Electrolize", system-ui, sans-serif;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(109, 200, 255, 0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109, 200, 255, 0.13) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    .shell {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      width: min(100% - 2rem, 1120px);
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: 1.5rem 0;
+    }
+
+    .site-header, .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      place-items: center;
+      border: 1px solid rgba(94, 242, 179, 0.55);
+      border-radius: 50%;
+      color: var(--mint);
+      background: rgba(94, 242, 179, 0.07);
+      box-shadow: 0 0 28px rgba(94, 242, 179, 0.14);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 0 0 rgba(94, 242, 179, 0.55);
+      animation: pulse 2.2s infinite;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+      align-items: center;
+      gap: clamp(2.5rem, 8vw, 8rem);
+      padding: 5rem 0;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0 0 1.4rem;
+      color: var(--blue);
+      font-size: 0.85rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 2.75rem;
+      height: 1px;
+      content: "";
+      background: var(--blue);
+    }
+
+    h1 {
+      max-width: 10ch;
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 6.8rem);
+      font-weight: 400;
+      line-height: 0.94;
+      letter-spacing: -0.055em;
+    }
+
+    h1 span { color: var(--mint); }
+
+    .intro {
+      max-width: 36rem;
+      margin: 2rem 0 0;
+      color: var(--text-soft);
+      font-family: system-ui, sans-serif;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.75;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 2rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid rgba(94, 242, 179, 0.55);
+      color: var(--mint);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: gap 180ms ease, color 180ms ease;
+    }
+
+    .contact-link:hover, .contact-link:focus-visible {
+      gap: 1rem;
+      color: #9effd2;
+    }
+
+    .contact-link:focus-visible, .brand:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 0.35rem;
+    }
+
+    .progress-card {
+      position: relative;
+      display: grid;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 25rem;
+      place-items: center;
+      justify-self: end;
+      border: 1px solid var(--surface-edge);
+      border-radius: 1.5rem;
+      background: linear-gradient(145deg, rgba(19, 33, 63, 0.82), var(--surface));
+      box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .progress-card::before {
+      position: absolute;
+      inset: 1rem;
+      border: 1px solid rgba(109, 200, 255, 0.12);
+      border-radius: 1rem;
+      content: "";
+    }
+
+    .orbit {
+      position: relative;
+      display: grid;
+      width: 62%;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgba(109, 200, 255, 0.27);
+      border-radius: 50%;
+    }
+
+    .orbit::before, .orbit::after {
+      position: absolute;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .orbit::before {
+      inset: 11%;
+      border: 1px dashed rgba(94, 242, 179, 0.34);
+      animation: rotate 14s linear infinite;
+    }
+
+    .orbit::after {
+      top: -0.35rem;
+      left: 50%;
+      width: 0.7rem;
+      height: 0.7rem;
+      background: var(--mint);
+      box-shadow: 0 0 1.5rem rgba(94, 242, 179, 0.85);
+      transform: translateX(-50%);
+      transform-origin: 0.35rem calc(50% + 4.7rem);
+      animation: orbit 5s linear infinite;
+    }
+
+    .monogram {
+      color: var(--text);
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      letter-spacing: -0.08em;
+    }
+
+    .card-label {
+      position: absolute;
+      right: 1.8rem;
+      bottom: 1.7rem;
+      left: 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-soft);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .site-footer {
+      color: #8390a5;
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+    }
+
+    .site-footer a { color: var(--text-soft); text-decoration: none; }
+    .site-footer a:hover, .site-footer a:focus-visible { color: var(--mint); }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 0.65rem rgba(94, 242, 179, 0); }
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes orbit { to { transform: translateX(-50%) rotate(360deg); } }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 2.5rem, 38rem); }
+      main { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 0; }
+      h1 { max-width: 9ch; }
+      .progress-card { width: min(100%, 20rem); justify-self: start; }
+    }
+
+    @media (max-width: 480px) {
+      .site-header, .site-footer { align-items: flex-start; flex-direction: column; }
+      .site-header { gap: 1.25rem; }
+      main { padding: 3.5rem 0; }
+      .card-label { right: 1.35rem; bottom: 1.25rem; left: 1.35rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Eric Christine home">
+        <span class="brand-mark" aria-hidden="true">EC</span>
+        <span>Eric Christine</span>
+      </a>
+      <p class="status"><span class="status-dot" aria-hidden="true"></span>Maintenance mode</p>
+    </header>
+
+    <main>
+      <section aria-labelledby="page-title">
+        <p class="eyebrow">A quick tune-up</p>
+        <h1 id="page-title">Fresh ideas <span>loading.</span></h1>
+        <p class="intro">I'm making a few thoughtful updates to the site. Everything will be back online shortly.</p>
+        <a class="contact-link" href="mailto:ejcdevs@gmail.com?subject=Website%20inquiry">
+          Get in touch <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
+      <div class="progress-card" aria-hidden="true">
+        <div class="orbit">
+          <span class="monogram">EC</span>
+        </div>
+        <div class="card-label">
+          <span>Refining</span>
+          <span>Building</span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© Eric Christine</span>
+      <a href="https://www.linkedin.com/in/eric-christine/">LinkedIn</a>
+    </footer>
+  </div>
+</body>
+</html>
