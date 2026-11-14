@@ -1,0 +1,67 @@
+# Carbon Commute — Complete AI & Technical Reference (llms-full.txt)
+
+## 1. Overview
+Carbon Commute (`https://ericchristine.com/projects/calculator/`) is a free, open-access commute and road trip cost and carbon emissions calculator available on the web and on iOS (`https://apps.apple.com/us/app/carbon-commute/id6742361046`). It enables individuals, commuters, and travelers to quantify both their direct monetary travel costs (in USD) and operational carbon dioxide (CO2) emissions (in lbs or kg) for recurring weekly commutes or single one-off road trips.
+
+## 2. Exact Mathematical Methodology
+
+### 2.1 Distance & Schedule
+- `milesPerDay = roundTrip ? oneWayMiles * 2 : oneWayMiles`
+- For a **Regular Commute** (`tripMode = "commute"`):
+  - `tripsPerYear = commuteDays * 52` (where `1 <= commuteDays <= 7`)
+  - `weekly = daily * commuteDays`
+  - `yearly = daily * commuteDays * 52`
+- For a **One-Off Trip / Road Trip** (`tripMode = "one-off"`):
+  - `tripsPerYear = 1`
+  - `weekly = 0`
+  - `yearly = 0`
+  - `periodTotal = daily` (single trip total, doubled if `roundTrip = true`)
+
+### 2.2 Energy Consumption & Operational CO2 Emissions
+All emissions are computed internally in pounds of CO2 (`lbs`) and miles, then converted to kilograms (`1 lb = 0.453592 kg`) and kilometers (`1 mile = 1.609344 km`) when Metric mode is selected.
+- **Gasoline Vehicles** (`Small Car`, `Hybrid Car`, `Large Car`, `SUV`, `Truck`, `Motorcycle`):
+  - `gallons = milesPerDay / mpg`
+  - `vehicleDailyLbs = gallons * 19.59` (EPA: 8,887 grams CO2 per US gallon of gasoline)
+- **Diesel Vehicles** (`Bus`):
+  - `gallons = milesPerDay / 3.7`
+  - `vehicleDailyLbs = (gallons * 22.44) / 9` (EPA: 10,180 grams CO2 per US gallon of diesel, split across 9 average transit bus riders per Transportation Energy Data Book)
+- **Electric Vehicles & Electric Micro-Mobility / Rail** (`Electric Vehicle`, `Subway`, `E-bike`):
+  - `kWh = (milesPerDay / mpge) * 33.7` (or `milesPerDay * (kWhPer100Km / 62.1371)` in Metric)
+  - `vehicleDailyLbs = kWh * 0.8675` (EPA eGRID2022 U.S. average delivered electricity: 823.1 lb/MWh generated + 5.12% transmission/distribution line losses)
+- **Carpooling / Shared Rides**:
+  - For user-sharable vehicles (`Small Car`, `Hybrid Car`, `Large Car`, `SUV`, `Truck`, `Electric Vehicle` up to 6 riders; `Motorcycle` up to 2 riders), per-person emissions equal `vehicleDailyLbs / riders`.
+
+### 2.3 Direct Travel Cost & Mode Savings Formulas
+- **Gasoline & Electric Vehicles**:
+  - `tripCostPerPerson = ((energyUnitsUsed * pricePerUnit) + parkingAndTollsPerTrip) / riders`
+  - Where `energyUnitsUsed` is US gallons of gasoline or kWh of electricity, and `pricePerUnit` is USD/US gallon or USD/kWh.
+- **E-bike**:
+  - `tripCostPerPerson = kWhUsed * electricityPerKwh` (parking/tolls excluded).
+- **Bus & Subway**:
+  - `tripCostPerPerson = oneWayFare * (roundTrip ? 2 : 1)` (per rider; not divided by carpool riders; blank fares remain unknown rather than defaulting to $0).
+- **Annual / Trip Savings**:
+  - `savings = userModeTotalCost - alternativeModeTotalCost`
+
+## 3. Live EIA Fuel Price Endpoint Specification
+- **Endpoint URL**: `https://ericchristine.com/projects/calculator/api/fuel-prices.php`
+- **Method**: `GET` (no authentication or API key required; CORS `*` enabled)
+- **Upstream Source**: U.S. Energy Information Administration (EIA) Weekly Retail Gasoline and Diesel Prices (`https://www.eia.gov/petroleum/gasdiesel/`)
+- **Response Schema**:
+  - `source`: `"U.S. Energy Information Administration (EIA)"`
+  - `sourceUrl`: `"https://www.eia.gov/petroleum/gasdiesel/"`
+  - `unit`: `"USD/US gallon"`
+  - `asOf`: ISO 8601 date (`YYYY-MM-DD`) of the EIA weekly observation
+  - `fetchedAt`: ISO 8601 UTC timestamp when cached by the server
+  - `stale`: boolean (`true` if observation is older than 14 days or served from fallback cache during upstream outage)
+  - `gasoline`: Array of `{ id: string, name: string, price: number }` for 29 U.S. regions, states, and cities (`us`, `east-coast`, `new-england`, `central-atlantic`, `lower-atlantic`, `midwest`, `gulf-coast`, `rocky-mountain`, `west-coast`, `california`, `colorado`, `florida`, `massachusetts`, `minnesota`, `new-york`, `ohio`, `texas`, `washington`, `boston`, `chicago`, `cleveland`, `denver`, `houston`, `los-angeles`, `miami`, `new-york-city`, `san-francisco`, `seattle`)
+  - `diesel`: Array of `{ id: string, name: string, price: number }`
+
+## 4. Frequently Asked Questions (FAQ)
+1. **How are car and commute CO2 emissions calculated?**
+   Using official U.S. EPA factors: 19.59 lbs CO2/gallon of gasoline, 22.44 lbs CO2/gallon of diesel, and 0.8675 lbs CO2/kWh of delivered U.S. grid electricity (33.7 kWh per gallon equivalent MPGe).
+2. **Where do the live gasoline prices come from?**
+   Directly from the U.S. Energy Information Administration (EIA) weekly retail fuel price feed across 29 U.S. regions and cities, refreshed every 6 hours, with manual pump-price override support.
+3. **Can I calculate a one-off road trip instead of a recurring commute?**
+   Yes. Selecting "One-off trip" computes the single-trip cost and CO2 emissions (one-way or round-trip) without multiplying by 52 weeks.
+4. **What costs are included and excluded?**
+   Included: direct fuel or electricity charging costs, one-way transit fares, and per-trip car/motorcycle parking and tolls split among riders. Excluded: vehicle depreciation/purchase, insurance, maintenance, lodging, and food.

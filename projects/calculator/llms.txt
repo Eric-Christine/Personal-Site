@@ -1,0 +1,49 @@
+# Carbon Commute: Trip Costs & CO2 Emissions Calculator
+
+> Free web and iOS calculator by Eric Christine that computes daily, weekly, and annual commute or one-off road trip travel costs (USD) and tailpipe/grid CO2 emissions (lbs or kg), powered by official U.S. EPA Greenhouse Gas Equivalencies factors and live U.S. Energy Information Administration (EIA) regional fuel prices.
+
+- Canonical Web App: https://ericchristine.com/projects/calculator/
+- Live EIA Fuel Price API (JSON): https://ericchristine.com/projects/calculator/api/fuel-prices.php
+- Full AI Reference Document: https://ericchristine.com/projects/calculator/llms-full.txt
+- iOS App Store: https://apps.apple.com/us/app/carbon-commute/id6742361046
+- Author: https://ericchristine.com/
+
+## Core Capabilities
+
+- **Dual Trip Modes**:
+  - **Regular Commute**: Calculates daily, weekly, and 52-week annual CO2 emissions and direct travel costs (1-7 days/week, one-way or round-trip).
+  - **One-Off Trip / Road Trip**: Calculates single-trip CO2 emissions and direct travel costs (doubled when round-trip is enabled) without annualizing.
+- **Live Keyless U.S. Fuel Prices**: Automatically fetches official U.S. EIA weekly retail regular gasoline and diesel averages across 29 U.S. regions, states, and metro areas (U.S. average, East Coast, New England, Central Atlantic, Lower Atlantic, Midwest, Gulf Coast, Rocky Mountain, West Coast, California, Colorado, Florida, Massachusetts, Minnesota, New York, Ohio, Texas, Washington, Boston, Chicago, Cleveland, Denver, Houston, Los Angeles, Miami, New York City, San Francisco, Seattle). Supports manual local pump-price overrides.
+- **Direct Mode Cost & CO2 Savings Comparison**: Side-by-side comparison of annual or per-trip dollar savings and CO2 reduction across 9 vehicle and transit types: Small Car, Hybrid Car, Large Car, SUV, Truck, Electric Vehicle, Motorcycle, Bus, Subway, and E-bike.
+- **Carpool & Shared Ride Splitting**: Splits vehicle emissions, fuel/electricity costs, and parking/tolls across 1 to 6 riders (up to 2 on motorcycles); transit fares remain per-person.
+- **Route Distance Estimation**: Built-in point-to-point driving distance lookup (OpenStreetMap Nominatim + OSRM) or manual mile/kilometer entry.
+- **Units & History**: Supports Imperial (miles, MPG, MPGe, lbs CO2) and Metric (km, L/100 km, kWh/100 km, kg CO2) with local history persistence, insights, and CSV export including exact fuel price used.
+
+## Official Formulas & Emission Factors (EPA)
+
+- **Gasoline**: `19.59 lbs CO2 / US gallon` (8,887 g CO2/gal)
+- **Diesel**: `22.44 lbs CO2 / US gallon` (10,180 g CO2/gal)
+- **Grid Electricity (U.S. Average)**: `0.8675 lbs CO2 / kWh` delivered (EPA eGRID2022 including 5.12% line losses); `33.7 kWh = 1 gallon equivalent (MPGe)`
+- **Carbon Credits**: `1 metric ton CO2 = 2,204.62 lbs CO2`
+- **Urban Tree Sequestration**: `132.28 lbs CO2` (0.060 metric ton) per urban tree seedling grown for 10 years
+- **U.S. Average Passenger Car Baseline**: `10,917 miles/year` at `22.8 MPG` = `9,380.4 lbs CO2/year`
+
+## Default Vehicle Profiles
+
+| Mode | Default Efficiency (Imperial) | Default Efficiency (Metric) | Energy Source | Default Riders |
+| :--- | :--- | :--- | :--- | :--- |
+| Small Car | 32 MPG | 7.35 L/100 km | Gasoline | 1 (up to 6) |
+| Hybrid Car | 45 MPG | 5.23 L/100 km | Gasoline | 1 (up to 6) |
+| Large Car | 27 MPG | 8.71 L/100 km | Gasoline | 1 (up to 6) |
+| SUV | 23 MPG | 10.23 L/100 km | Gasoline | 1 (up to 6) |
+| Truck | 18 MPG | 13.07 L/100 km | Gasoline | 1 (up to 6) |
+| Motorcycle | 40 MPG | 5.88 L/100 km | Gasoline | 1 (up to 2) |
+| Electric Vehicle | 120 MPGe | 17.45 kWh/100 km | Electric | 1 (up to 6) |
+| Bus | 3.7 MPG | 63.57 L/100 km | Diesel | 9 (fixed) |
+| Subway | 198 MPGe (~0.17 kWh/passenger-mi) | 10.58 kWh/100 km | Electric | 1 (per passenger) |
+| E-bike | 842 MPGe (~0.04 kWh/mi) | 2.49 kWh/100 km | Electric | 1 (fixed) |
+
+## Primary Sources
+
+- U.S. EPA Greenhouse Gas Equivalencies Calculator: https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references
+- U.S. Energy Information Administration (EIA) Gasoline and Diesel Fuel Update: https://www.eia.gov/petroleum/gasdiesel/

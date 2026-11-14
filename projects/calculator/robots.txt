@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+
+# Explicitly welcome AI Search & Answer Engine crawlers
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://ericchristine.com/projects/calculator/sitemap.xml
+# AI Discovery Reference: https://ericchristine.com/projects/calculator/llms.txt
+# Full AI Reference: https://ericchristine.com/projects/calculator/llms-full.txt
