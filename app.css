@@ -19,6 +19,7 @@
   --card-red: #8e3a51;
   --card-orange: #f49f77;
   --card-green: #88c777;
+  --card-purple: #b59cec;
   --accent: #5ef2b3;
   --accent-2: #6dc8ff;
 }
@@ -204,7 +205,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #ffe2aa, var(--card-yellow));
@@ -229,7 +230,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #637dbc, var(--card-blue));
@@ -248,7 +249,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #95e4d0, var(--card-teal));
@@ -266,7 +267,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #a84a63, var(--card-red));
@@ -286,7 +287,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #f9b18f, var(--card-orange));
@@ -305,7 +306,7 @@ a:hover {
   padding: 20px;
   min-width: 250px;
   max-width: 500px;
-  height: 420px;
+  min-height: 420px;
   border: 1px solid var(--card-border);
   border-radius: 10px;
   background: linear-gradient(160deg, #a6da95, var(--card-green));
@@ -314,6 +315,22 @@ a:hover {
   font-family: 'Overpass Mono', monospace;
 
   /* animation:  slideInFromLeft .8s none 0s iteration-count 1 ease-in-out; */
+
+  animation: slideInFromLeft 1s ease-in-out 0s 1;
+
+}
+
+.card8 {
+  margin: 20px 50px;
+  padding: 20px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 420px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: linear-gradient(160deg, #ddd0ff, var(--card-purple));
+  box-shadow: 10px 15px #55408c;
+  font-family: 'Overpass Mono', monospace;
 
   animation: slideInFromLeft 1s ease-in-out 0s 1;
 
@@ -383,6 +400,15 @@ a:hover {
   color: var(--card-ink);
 }
 
+.card8 ul {
+  padding-bottom: 10px;
+}
+
+.card8 a {
+  text-decoration: none;
+  color: var(--card-ink);
+}
+
 h4 {
   text-align: left;
   color: var(--card-ink);
@@ -430,6 +456,11 @@ h4 {
 .card7:active {
   transform: translateY(4px) translateX(3px);
   box-shadow: 5px 6px #3b5e2a;
+}
+
+.card8:active {
+  transform: translateY(4px) translateX(3px);
+  box-shadow: 5px 6px #55408c;
 }
 
 
