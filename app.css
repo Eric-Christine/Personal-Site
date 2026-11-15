@@ -463,6 +463,122 @@ h4 {
   box-shadow: 5px 6px #55408c;
 }
 
+/* Holographic chrome card (newest project). app.js feeds --mx/--my/--rx/--ry from the pointer */
+.holo {
+  --mx: 50%;
+  --my: 50%;
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg, #f5f7fb 0%, #c8cdd8 16%, #ffffff 30%, #a9b0be 48%, #eef1f6 64%, #b4bac8 80%, #fbfcfe 100%) padding-box,
+    linear-gradient(135deg, #ffffff, #7f8798, #ffffff, #5f6879, #e9ecf2, #8a92a3) border-box;
+  box-shadow: 10px 15px #464c5c, 0 0 28px rgba(170, 200, 255, 0.35);
+  transition-duration: 0.12s;
+}
+
+.holo::before,
+.holo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* rainbow foil */
+.holo::before {
+  background: repeating-linear-gradient(115deg,
+      rgba(255, 92, 170, 0.45) 0%,
+      rgba(255, 210, 90, 0.45) 7%,
+      rgba(120, 255, 170, 0.45) 14%,
+      rgba(90, 210, 255, 0.45) 21%,
+      rgba(170, 120, 255, 0.45) 28%,
+      rgba(255, 92, 170, 0.45) 35%);
+  background-size: 300% 300%;
+  background-position: var(--mx) var(--my);
+  mix-blend-mode: hard-light;
+  opacity: 0.8;
+  animation: holoShift 8s linear infinite;
+}
+
+/* glare */
+.holo::after {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 45%),
+    linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.55) 48%, transparent 58%);
+  background-size: 100% 100%, 250% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: soft-light;
+  animation: holoSweep 5s ease-in-out infinite;
+}
+
+.holo > a {
+  display: flow-root;
+  position: relative;
+  z-index: 1;
+}
+
+.holo .card_title {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.holo:hover,
+.holo:focus-within {
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) scale(1.06);
+  box-shadow: 10px 15px #464c5c, 0 0 40px rgba(170, 200, 255, 0.6);
+}
+
+.holo:active {
+  box-shadow: 5px 6px #464c5c;
+}
+
+.holo_badge {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  padding: 3px 9px;
+  border: 1px solid rgba(15, 23, 42, 0.45);
+  border-radius: 999px;
+  background: linear-gradient(120deg, #ffe58a, #ff9fd2, #9fd8ff, #b9ffb0);
+  font-family: 'Electrolize', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--card-ink);
+}
+
+@keyframes holoShift {
+  to {
+    background-position: calc(var(--mx) + 300%) var(--my);
+  }
+}
+
+@keyframes holoSweep {
+  0%,
+  60% {
+    background-position: center, 150% 0;
+  }
+
+  100% {
+    background-position: center, -50% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .holo::before,
+  .holo::after {
+    animation: none;
+  }
+
+  .holo:hover,
+  .holo:focus-within {
+    transform: none;
+  }
+}
+
 
 .noListDecoration {
   list-style: none;
