@@ -64,3 +64,8 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Generated hosting directories and retired private resumes
+/.site-build/
+/IMG/*Resume*.pdf
+/files/*Resume 2025*.pdf

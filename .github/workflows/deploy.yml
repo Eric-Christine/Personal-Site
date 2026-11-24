@@ -17,6 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Stage approved public files
+        run: python3 scripts/stage-site.py hostgator
+
       - name: Configure SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -45,4 +48,4 @@ jobs:
             --exclude ".DS_Store" \
             --exclude "node_modules/" \
             -e "ssh -p ${SSH_PORT:-22} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
-            ./ "${SSH_USERNAME}@${SSH_HOST}:${SSH_TARGET_DIR}"
+            .site-build/hostgator/ "${SSH_USERNAME}@${SSH_HOST}:${SSH_TARGET_DIR}"

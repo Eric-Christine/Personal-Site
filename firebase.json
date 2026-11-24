@@ -1,11 +1,14 @@
 {
   "hosting": {
     "site": "eric-christine",
-    "public": ".",
+    "public": ".site-build/firebase",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "predeploy": [
+      "python3 scripts/stage-site.py firebase"
     ]
   }
 }
