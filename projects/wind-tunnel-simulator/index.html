@@ -113,6 +113,38 @@
                 </span>
               </label>
             </div>
+
+            <div>
+              <input class="visually-hidden" type="radio" name="vehicle" id="veh-motorcycle" value="motorcycle" />
+              <label class="vehicle-card" for="veh-motorcycle">
+                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
+                  <path d="M26 32 L30 22 L42 17 L56 22 L80 22 L92 18 L86 28 L72 34 L42 34 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+                  <path d="M46 16 L54 9 L64 11 L78 17 L74 23 L54 22 Z" fill="currentColor" opacity="0.45"/>
+                  <circle cx="57" cy="9.5" r="5" fill="currentColor"/>
+                  <circle cx="34" cy="34" r="8" fill="currentColor"/><circle cx="85" cy="34" r="8" fill="currentColor"/>
+                </svg>
+                <span class="vehicle-meta">
+                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-motorcycle)"></span>Sport Motorcyclist</span>
+                  <span class="vehicle-specs">Cd 0.62 &bull; 0.72 m&sup2; &bull; CdA 0.45</span>
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <input class="visually-hidden" type="radio" name="vehicle" id="veh-escooter" value="escooter" />
+              <label class="vehicle-card" for="veh-escooter">
+                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
+                  <path d="M34 38 L82 38 M42 38 L37 15 L44 15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M54 38 L54 15 L66 15 L66 38 M54 19 L40 16" fill="currentColor" opacity="0.45" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <circle cx="60" cy="8.5" r="4.5" fill="currentColor"/>
+                  <circle cx="38" cy="39" r="4.5" fill="currentColor"/><circle cx="79" cy="39" r="4.5" fill="currentColor"/>
+                </svg>
+                <span class="vehicle-meta">
+                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-escooter)"></span>E-Scooter + Rider</span>
+                  <span class="vehicle-specs">Cd 1.10 &bull; 0.68 m&sup2; &bull; CdA 0.75</span>
+                </span>
+              </label>
+            </div>
           </div>
         </fieldset>
 
@@ -181,7 +213,7 @@
               <input type="checkbox" id="opt-isolate" />
               <span>Isolate Shape Effect</span>
             </label>
-            <label class="check-item">
+            <label class="check-item" id="roofbox-wrap">
               <input type="checkbox" id="opt-roofbox" />
               <span>Roof Cargo Box</span>
             </label>
@@ -270,15 +302,16 @@
     <section class="panel" aria-label="Speed Comparison Table">
       <div class="table-wrap">
         <table class="comparison-table">
-          <caption>Speed Impact Across Sedan, SUVs, Minivan &amp; Pickup Truck (12,000 mi/yr @ $3.50/gal)</caption>
+          <caption>Speed Impact Across Cars, SUVs, Motorcyclist &amp; E-Scooter (12,000 mi/yr @ $3.50/gal)</caption>
           <thead>
             <tr>
               <th scope="col">Speed</th>
               <th scope="col">Sedan</th>
               <th scope="col">Compact SUV (RAV4)</th>
-              <th scope="col">Minivan</th>
               <th scope="col">Full-Size SUV</th>
               <th scope="col">Pickup Truck</th>
+              <th scope="col">Motorcyclist</th>
+              <th scope="col">E-Scooter + Rider</th>
             </tr>
           </thead>
           <tbody id="comparison-tbody"></tbody>

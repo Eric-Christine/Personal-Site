@@ -76,13 +76,17 @@
     );
 
     let yMax = 0;
+    const includeElectricInMpgScale =
+      kind === 'mpg' && activeVehicleId === 'escooter' && !(physicsOptions && physicsOptions.isolateShape);
     for (const c of curves) {
+      if (kind === 'mpg' && c.config.isElectric && !includeElectricInMpgScale) continue;
       for (const pt of c.points) {
         const val = kind === 'mpg' ? pt.mpg : kind === 'power' ? pt.dragHp : pt.dragLbf;
         if (val > yMax) yMax = val;
       }
     }
-    const niceStep = kind === 'mpg' ? 10 : kind === 'power' ? 25 : 100;
+    const niceStep =
+      kind === 'mpg' ? (includeElectricInMpgScale ? 200 : 10) : kind === 'power' ? 25 : 100;
     yMax = Math.max(niceStep, Math.ceil((yMax * 1.12) / niceStep) * niceStep);
 
     const xToPx = (mph) => pad.left + ((mph - minX) / (maxX - minX)) * plotW;
@@ -141,10 +145,15 @@
       ctx.fillText('55 mph ref', refX + 4, pad.top + 4);
     }
 
-    // Draw inactive curves first, then active vehicle bold with area fill
+    // Draw inactive curves first, then active vehicle bold with area fill (clipped inside plot box)
     const ordered = [...curves].sort((a, b) =>
       a.config.id === activeVehicleId ? 1 : b.config.id === activeVehicleId ? -1 : 0
     );
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(pad.left, pad.top, plotW, plotH);
+    ctx.clip();
 
     for (const curve of ordered) {
       const isActive = curve.config.id === activeVehicleId;
@@ -213,7 +222,7 @@
     const activeVals = AeroPhysics.VEHICLE_ORDER.map((id) => {
       const m = AeroPhysics.computeMetrics(id, clampedMph, physicsOptions);
       const val = kind === 'mpg' ? m.mpg : kind === 'power' ? m.dragHp : m.dragLbf;
-      return { id, name: m.config.shortName, val, color: getVehicleColor(id, palette) };
+      return { id, name: m.config.shortName, val, isElectric: m.config.isElectric, color: getVehicleColor(id, palette) };
     });
 
     for (const item of activeVals) {
@@ -229,10 +238,12 @@
         ctx.stroke();
       }
     }
+    ctx.restore();
 
     // Floating multi-vehicle legend box at top-right (or top-left for power/force curves)
-    const boxW = 168;
-    const boxH = 18 + activeVals.length * 16;
+    const rowH = 14;
+    const boxW = 166;
+    const boxH = 20 + activeVals.length * rowH;
     const boxX = kind === 'mpg' ? pad.left + plotW - boxW - 6 : pad.left + 8;
     const boxY = pad.top + 6;
 
@@ -248,20 +259,20 @@
     ctx.fill();
     ctx.stroke();
 
-    ctx.font = 'bold 11px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.font = 'bold 10.5px ui-monospace, SFMono-Regular, Menlo, monospace';
     ctx.fillStyle = palette.text;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(`@ ${clampedMph} mph`, boxX + 8, boxY + 5);
+    ctx.fillText(`@ ${clampedMph} mph`, boxX + 8, boxY + 4);
 
-    ctx.font = '11px ui-monospace, SFMono-Regular, Menlo, monospace';
-    const unit = kind === 'mpg' ? 'MPG' : kind === 'power' ? 'hp' : 'lbf';
+    ctx.font = '10.5px ui-monospace, SFMono-Regular, Menlo, monospace';
     activeVals.forEach((item, idx) => {
-      const rowY = boxY + 21 + idx * 16;
+      const rowY = boxY + 19 + idx * rowH;
+      const unit = kind === 'mpg' ? (item.isElectric ? 'MPGe' : 'MPG') : kind === 'power' ? 'hp' : 'lbf';
       ctx.fillStyle = item.color;
-      ctx.fillRect(boxX + 8, rowY + 3, 8, 8);
+      ctx.fillRect(boxX + 8, rowY + 2, 7, 7);
       ctx.fillStyle = item.id === activeVehicleId ? palette.text : palette.muted;
-      ctx.fillText(`${item.name}: ${item.val.toFixed(1)} ${unit}`, boxX + 21, rowY);
+      ctx.fillText(`${item.name}: ${item.val.toFixed(1)} ${unit}`, boxX + 19, rowY);
     });
   }
 

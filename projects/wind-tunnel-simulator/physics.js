@@ -22,7 +22,7 @@
     ANNUAL_MILES: 12000,       // miles/year reference
   });
 
-  const VEHICLE_ORDER = ['sedan', 'suv', 'fullsize_suv', 'minivan', 'truck', 'coupe'];
+  const VEHICLE_ORDER = ['sedan', 'suv', 'fullsize_suv', 'minivan', 'truck', 'coupe', 'motorcycle', 'escooter'];
 
   const VEHICLES = {
     sedan: {
@@ -336,6 +336,120 @@
         { x: 0.608, y: 0.175, anchorX: 0.77, anchorY: 0.26, label: 'Ducktail Lip & Low Wake (Cd 0.28)', tone: 'info' },
       ],
     },
+
+    motorcycle: {
+      id: 'motorcycle',
+      name: 'Sport Motorcyclist',
+      shortName: 'Moto',
+      tagline: 'Narrow bike + tucked rider (high Cd, tiny frontal area)',
+      visualType: 'motorcycle',
+      isElectric: false,
+      wheelRadiusM: 0.31,
+      cd: 0.62,
+      area: 0.72,
+      mass: 280,
+      crr: 0.014,
+      idleWatts: 5500,
+      drivetrainEta: 0.25,
+      colorToken: 'motorcycle',
+      bodyColor: '#f97316',
+      bodyAccent: '#c2410c',
+      polygon: [
+        [0.308, 0.100],
+        [0.312, 0.172],
+        [0.336, 0.212],
+        [0.368, 0.194],
+        [0.405, 0.174],
+        [0.456, 0.200],
+        [0.478, 0.188],
+        [0.464, 0.140],
+        [0.425, 0.082],
+        [0.355, 0.056],
+        [0.324, 0.068],
+      ],
+      riderPolygon: [
+        [0.352, 0.214],
+        [0.364, 0.264],
+        [0.382, 0.280],
+        [0.404, 0.272],
+        [0.436, 0.246],
+        [0.448, 0.198],
+        [0.415, 0.145],
+        [0.376, 0.168],
+      ],
+      cabinWindow: [
+        [0.316, 0.174],
+        [0.337, 0.211],
+        [0.350, 0.204],
+        [0.332, 0.172],
+      ],
+      wheels: [
+        { x: 0.330, y: 0.064, r: 0.064 },
+        { x: 0.454, y: 0.064, r: 0.064 },
+      ],
+      roofMount: null,
+      callouts: [
+        { x: 0.310, y: 0.155, anchorX: 0.17, anchorY: 0.25, label: 'Narrow Fairing (0.72 m\u00b2)', tone: 'good' },
+        { x: 0.382, y: 0.282, anchorX: 0.38, anchorY: 0.43, label: 'Tucked Rider (Cd 0.62)', tone: 'warn' },
+        { x: 0.485, y: 0.205, anchorX: 0.67, anchorY: 0.30, label: 'Turbulent Rider Back Wake', tone: 'info' },
+      ],
+    },
+
+    escooter: {
+      id: 'escooter',
+      name: 'E-Scooter + Rider',
+      shortName: 'E-Scooter',
+      tagline: 'Standing human sail (Cd 1.10) on electric commuter scooter',
+      visualType: 'escooter',
+      isElectric: true,
+      wheelRadiusM: 0.13,
+      cd: 1.10,
+      area: 0.68,
+      mass: 98,
+      crr: 0.016,
+      idleWatts: 60,
+      drivetrainEta: 0.80,
+      colorToken: 'escooter',
+      bodyColor: '#84cc16',
+      bodyAccent: '#4d7c0f',
+      polygon: [
+        [0.340, 0.036],
+        [0.438, 0.036],
+        [0.438, 0.058],
+        [0.362, 0.058],
+        [0.354, 0.232],
+        [0.342, 0.232],
+        [0.350, 0.058],
+        [0.340, 0.058],
+      ],
+      riderPolygon: [
+        [0.380, 0.058],
+        [0.416, 0.058],
+        [0.414, 0.188],
+        [0.418, 0.312],
+        [0.408, 0.330],
+        [0.410, 0.368],
+        [0.392, 0.378],
+        [0.374, 0.368],
+        [0.374, 0.332],
+        [0.376, 0.305],
+        [0.350, 0.236],
+        [0.356, 0.222],
+        [0.378, 0.264],
+        [0.378, 0.185],
+      ],
+      cabinWindow: null,
+      wheels: [
+        { x: 0.346, y: 0.028, r: 0.028 },
+        { x: 0.432, y: 0.028, r: 0.028 },
+      ],
+      roofMount: null,
+      callouts: [
+        { x: 0.372, y: 0.275, anchorX: 0.20, anchorY: 0.34, label: 'Standing Human Sail (Cd 1.10)', tone: 'warn' },
+        { x: 0.392, y: 0.382, anchorX: 0.39, anchorY: 0.50, label: 'More Drag Than a Sedan!', tone: 'warn' },
+        { x: 0.448, y: 0.240, anchorX: 0.65, anchorY: 0.32, label: 'Massive Shedding Wake', tone: 'info' },
+      ],
+    },
   };
 
   function buildRoofBoxPolygon(mount) {
@@ -361,7 +475,7 @@
     let cd = base.cd;
     let area = base.area;
     const tonneauActive = Boolean(opts.tonneauCover && base.id === 'truck');
-    const roofBoxActive = Boolean(opts.roofBox);
+    const roofBoxActive = Boolean(opts.roofBox && base.roofMount);
 
     if (tonneauActive) {
       cd = Math.max(0.18, cd - 0.035);
@@ -372,6 +486,7 @@
     }
 
     const isolateShape = Boolean(opts.isolateShape);
+    const isElectric = Boolean(base.isElectric && !isolateShape);
     const mass = isolateShape ? refSedan.mass : base.mass;
     const crr = isolateShape ? refSedan.crr : base.crr;
     const idleWatts = isolateShape ? refSedan.idleWatts : base.idleWatts;
@@ -379,6 +494,9 @@
 
     const bodyPolygon = tonneauActive && base.polygonCovered ? base.polygonCovered : base.polygon;
     const cfdPolygons = [bodyPolygon];
+    if (base.riderPolygon) {
+      cfdPolygons.push(base.riderPolygon);
+    }
     let roofBoxPolygon = null;
     if (roofBoxActive) {
       roofBoxPolygon = buildRoofBoxPolygon(base.roofMount);
@@ -394,6 +512,7 @@
       crr,
       idleWatts,
       drivetrainEta,
+      isElectric,
       tonneauActive,
       roofBoxActive,
       isolateShape,

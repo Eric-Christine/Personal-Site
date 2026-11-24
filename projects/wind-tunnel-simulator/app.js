@@ -38,6 +38,7 @@
   const speedSlider = document.getElementById('wind-speed');
   const speedReadout = document.getElementById('speed-readout');
   const sweepBtn = document.getElementById('sweep-btn');
+  const roofboxWrap = document.getElementById('roofbox-wrap');
   const tonneauWrap = document.getElementById('tonneau-wrap');
   const optCallouts = document.getElementById('opt-callouts');
   const optVectors = document.getElementById('opt-vectors');
@@ -94,6 +95,8 @@
         truck: '#f59e0b',
         minivan: '#10b981',
         coupe: '#06b6d4',
+        motorcycle: '#f97316',
+        escooter: '#84cc16',
       },
     };
   }
@@ -117,6 +120,7 @@
     const cfg = AeroPhysics.getVehicleConfig(state.vehicleId, getPhysicsOptions());
     solver.setObstacles(cfg.cfdPolygons);
     tonneauWrap.hidden = cfg.id !== 'truck';
+    if (roofboxWrap) roofboxWrap.hidden = !cfg.roofMount;
   }
 
   function updateTelemetry() {
@@ -135,13 +139,18 @@
     };
     tunnelLegendDesc.textContent = modeDescs[state.fieldMode] || modeDescs.velocity;
 
+    const unit = cfg.isElectric ? 'MPGe' : 'MPG';
     if (state.speedMph === 0) {
-      kpiMpg.textContent = '0.0 MPG';
-      kpiMpgSub.textContent = `${m.galPerHour.toFixed(2)} gal/hr idle \u2022 Stationary`;
+      kpiMpg.textContent = `0.0 ${unit}`;
+      kpiMpgSub.textContent = cfg.isElectric
+        ? `${(m.pFuelW / 1000).toFixed(2)} kW elec idle \u2022 Stationary`
+        : `${m.galPerHour.toFixed(2)} gal/hr idle \u2022 Stationary`;
     } else {
       const sign = m.pctVs55 >= 0 ? '+' : '';
-      kpiMpg.textContent = `${m.mpg.toFixed(1)} MPG`;
-      kpiMpgSub.textContent = `${m.galPerHour.toFixed(2)} gal/hr \u2022 ${sign}${m.pctVs55.toFixed(1)}% vs 55 mph`;
+      kpiMpg.textContent = `${m.mpg.toFixed(1)} ${unit}`;
+      kpiMpgSub.textContent = cfg.isElectric
+        ? `${(m.pFuelW / 1000).toFixed(2)} kW elec \u2022 ${sign}${m.pctVs55.toFixed(1)}% vs 55 mph`
+        : `${m.galPerHour.toFixed(2)} gal/hr \u2022 ${sign}${m.pctVs55.toFixed(1)}% vs 55 mph`;
     }
 
     kpiDragForce.textContent = `${m.dragLbf.toFixed(1)} lbf`;
@@ -172,17 +181,20 @@
       .map((mph) => {
         const s = AeroPhysics.computeMetrics('sedan', mph, opts);
         const rv = AeroPhysics.computeMetrics('suv', mph, opts);
-        const mv = AeroPhysics.computeMetrics('minivan', mph, opts);
         const fs = AeroPhysics.computeMetrics('fullsize_suv', mph, opts);
         const tr = AeroPhysics.computeMetrics('truck', mph, opts);
+        const mt = AeroPhysics.computeMetrics('motorcycle', mph, opts);
+        const sc = AeroPhysics.computeMetrics('escooter', mph, opts);
+        const scUnit = sc.config.isElectric ? 'MPGe' : 'MPG';
         const active = mph === nearest ? ' data-active-row="true"' : '';
         return `<tr${active}>
           <th scope="row">${mph} mph</th>
           <td>${s.mpg.toFixed(1)} MPG &bull; ${s.dragLbf.toFixed(0)} lbf &bull; ${s.dragHp.toFixed(1)} hp</td>
           <td>${rv.mpg.toFixed(1)} MPG &bull; ${rv.dragLbf.toFixed(0)} lbf &bull; ${rv.dragHp.toFixed(1)} hp</td>
-          <td>${mv.mpg.toFixed(1)} MPG &bull; ${mv.dragLbf.toFixed(0)} lbf &bull; ${mv.dragHp.toFixed(1)} hp</td>
           <td>${fs.mpg.toFixed(1)} MPG &bull; ${fs.dragLbf.toFixed(0)} lbf &bull; ${fs.dragHp.toFixed(1)} hp</td>
           <td>${tr.mpg.toFixed(1)} MPG &bull; ${tr.dragLbf.toFixed(0)} lbf &bull; ${tr.dragHp.toFixed(1)} hp</td>
+          <td>${mt.mpg.toFixed(1)} MPG &bull; ${mt.dragLbf.toFixed(0)} lbf &bull; ${mt.dragHp.toFixed(1)} hp</td>
+          <td>${sc.mpg.toFixed(1)} ${scUnit} &bull; ${sc.dragLbf.toFixed(0)} lbf &bull; ${sc.dragHp.toFixed(1)} hp</td>
         </tr>`;
       })
       .join('');
@@ -395,13 +407,84 @@
     }
 
     // Headlight & taillight accents
-    const nosePt = cfg.bodyPolygon[1];
-    const tailPt = cfg.bodyPolygon[cfg.bodyPolygon.length - 5];
-    ctx.fillStyle = '#fef08a';
-    ctx.fillRect(toX(nosePt[0]), toY(nosePt[1]) - 3, 6, 5);
-    ctx.fillStyle = '#ef4444';
-    ctx.fillRect(toX(tailPt[0]) - 5, toY(tailPt[1]) - 3, 5, 6);
+    if (cfg.visualType === 'motorcycle') {
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(toX(0.308), toY(0.165), 5, 6);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(toX(0.471), toY(0.194), 5, 4);
+    } else if (cfg.visualType === 'escooter') {
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(toX(0.338), toY(0.220), 4, 5);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(toX(0.435), toY(0.056), 4, 4);
+    } else {
+      const nosePt = cfg.bodyPolygon[1];
+      const tailPt = cfg.bodyPolygon[cfg.bodyPolygon.length - 5];
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(toX(nosePt[0]), toY(nosePt[1]) - 3, 6, 5);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(toX(tailPt[0]) - 5, toY(tailPt[1]) - 3, 5, 6);
+    }
     ctx.restore();
+
+    // 2b. Optional human rider silhouette (motorcyclist / e-scooter commuter)
+    if (cfg.riderPolygon) {
+      ctx.save();
+      ctx.beginPath();
+      cfg.riderPolygon.forEach(([px, py], i) => {
+        if (i === 0) ctx.moveTo(toX(px), toY(py));
+        else ctx.lineTo(toX(px), toY(py));
+      });
+      ctx.closePath();
+      ctx.fillStyle = palette.dark ? '#1e293b' : '#334155';
+      ctx.fill();
+      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = palette.dark ? '#cbd5e1' : '#0f172a';
+      ctx.stroke();
+
+      if (cfg.visualType === 'motorcycle') {
+        // Handlebar grip + tucked racing helmet & visor
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(toX(0.344), toY(0.205));
+        ctx.lineTo(toX(0.365), toY(0.214));
+        ctx.stroke();
+
+        ctx.fillStyle = cfg.bodyColor;
+        ctx.beginPath();
+        ctx.ellipse(toX(0.386), toY(0.264), Math.max(8, w * 0.017), Math.max(7, h * 0.019), 0.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = palette.dark ? '#f8fafc' : '#0f172a';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.ellipse(toX(0.374), toY(0.263), Math.max(4, w * 0.007), Math.max(3, h * 0.008), 0.15, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (cfg.visualType === 'escooter') {
+        // Scooter handlebar grip + upright commuter helmet & visor
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(toX(0.340), toY(0.232));
+        ctx.lineTo(toX(0.362), toY(0.232));
+        ctx.stroke();
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath();
+        ctx.ellipse(toX(0.392), toY(0.352), Math.max(7, w * 0.016), Math.max(7, h * 0.024), 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(toX(0.374), toY(0.358), Math.max(5, w * 0.009), Math.max(4, h * 0.011));
+      }
+      ctx.restore();
+    }
 
     // 3. Rotating wheels drawn in foreground (outside CFD underbody gap)
     for (const wh of cfg.wheels) {
@@ -783,9 +866,11 @@
       }
     }
 
-    // Advance rotating wheels at road speed (radius ~0.34 m)
+    // Advance rotating wheels at road speed using each vehicle's wheel radius
+    const activeCfg = AeroPhysics.getVehicleConfig(state.vehicleId, getPhysicsOptions());
+    const wheelR = activeCfg.wheelRadiusM || 0.34;
     const vMs = state.speedMph * AeroPhysics.CONSTANTS.MPH_TO_MS;
-    state.wheelAngle = (state.wheelAngle + (vMs / 0.34) * dtSec) % (Math.PI * 2);
+    state.wheelAngle = (state.wheelAngle + (vMs / wheelR) * dtSec) % (Math.PI * 2);
 
     solver.step(state.speedMph);
     drawTunnel(dtSec);

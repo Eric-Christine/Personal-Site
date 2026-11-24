@@ -1,6 +1,6 @@
 # Automotive Wind Tunnel & MPG Efficiency Simulator
 
-An interactive 2D Computational Fluid Dynamics (CFD) wind tunnel and road-load fuel economy simulator exploring how vehicle shapes (**Midsize Sedan**, **Compact SUV (RAV4)**, **Full-Size SUV (Tahoe)**, **Family Minivan**, **Pickup Truck**, and **Hyundai Elantra**) and driving speeds (**0 to 100 mph**) affect airflow, wake turbulence, aerodynamic drag, and MPG.
+An interactive 2D Computational Fluid Dynamics (CFD) wind tunnel and road-load fuel economy simulator exploring how vehicle shapes (**Midsize Sedan**, **Compact SUV (RAV4)**, **Full-Size SUV (Tahoe)**, **Family Minivan**, **Pickup Truck**, **Hyundai Elantra**, **Sport Motorcyclist**, and **E-Scooter + Rider**) and driving speeds (**0 to 100 mph**) affect airflow, wake turbulence, aerodynamic drag, and MPG/MPGe.
 
 ## Run Locally
 
@@ -36,3 +36,5 @@ python3 -m http.server 8000
 | Full-Size SUV (Tahoe) | 0.38 | 3.25 m&sup2; | 1.235 m&sup2; | 27.1 | 19.0 | 10.8 |
 | Pickup Truck | 0.44 | 3.35 m&sup2; | 1.474 m&sup2; | 25.5 | 16.8 | 9.3 |
 | Hyundai Elantra | 0.28 | 2.12 m&sup2; | 0.594 m&sup2; | 56.1 | 42.1 | 24.5 |
+| Sport Motorcyclist | 0.62 | 0.72 m&sup2; | 0.446 m&sup2; | 96.3 | 58.7 | 30.3 |
+| E-Scooter + Rider (MPGe) | 1.10 | 0.68 m&sup2; | 0.748 m&sup2; | 458.4 | 148.7 | 64.5 |

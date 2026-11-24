@@ -42,6 +42,8 @@
   --color-truck: #f59e0b;
   --color-minivan: #10b981;
   --color-coupe: #06b6d4;
+  --color-motorcycle: #f97316;
+  --color-escooter: #84cc16;
 }
 
 @media (prefers-color-scheme: dark) {
