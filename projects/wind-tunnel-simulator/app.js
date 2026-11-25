@@ -11,6 +11,7 @@
 
   const state = {
     vehicleId: 'sedan',
+    categoryFilter: 'all',
     speedMph: 65,
     fieldMode: 'velocity', // 'velocity' | 'pressure' | 'vorticity' | 'smoke'
     showCallouts: true,
@@ -35,6 +36,9 @@
 
   // DOM Elements
   const formEl = document.getElementById('tunnel-controls');
+  const vehicleOptionsEl = document.getElementById('vehicle-options');
+  const categoryTabsEl = document.getElementById('category-tabs');
+  const thLiveSpeed = document.getElementById('th-live-speed');
   const speedSlider = document.getElementById('wind-speed');
   const speedReadout = document.getElementById('speed-readout');
   const sweepBtn = document.getElementById('sweep-btn');
@@ -116,10 +120,59 @@
     speedSlider.setAttribute('aria-valuetext', `${state.speedMph} miles per hour`);
   }
 
+  function buildVehicleSvg(svgKey) {
+    const s = AeroPhysics.SVG_SHAPES[svgKey] || AeroPhysics.SVG_SHAPES.sedan;
+    let inner = '';
+    if (s.scooterStroke) {
+      inner += `<path d="${s.scooterStroke}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+    if (s.path) {
+      inner += `<path d="${s.path}" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>`;
+    }
+    if (s.riderPath) {
+      inner += `<path d="${s.riderPath}" fill="currentColor" opacity="0.45" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>`;
+    }
+    if (s.head) {
+      inner += `<circle cx="${s.head.cx}" cy="${s.head.cy}" r="${s.head.r}" fill="currentColor"/>`;
+    }
+    for (const w of s.wheels) {
+      inner += `<circle cx="${w.cx}" cy="${w.cy}" r="${w.r}" fill="currentColor"/>`;
+    }
+    return `<svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">${inner}</svg>`;
+  }
+
+  function renderVehicleCards() {
+    const visibleIds = new Set(AeroPhysics.getFilteredVehicles(state.categoryFilter));
+    if (!vehicleOptionsEl.hasChildNodes()) {
+      vehicleOptionsEl.innerHTML = AeroPhysics.VEHICLE_ORDER.map((id) => {
+        const v = AeroPhysics.VEHICLES[id];
+        const badge = v.isTop10
+          ? `<span class="vehicle-badge">${v.salesRank}</span>`
+          : (v.isElectric ? `<span class="vehicle-badge">EV</span>` : '');
+        return `<div class="vehicle-item" data-vehicle-item="${id}">
+          <input class="visually-hidden" type="radio" name="vehicle" id="veh-${id}" value="${id}" ${id === state.vehicleId ? 'checked' : ''} />
+          <label class="vehicle-card" for="veh-${id}">
+            ${buildVehicleSvg(v.svgKey)}
+            <span class="vehicle-meta">
+              <span class="vehicle-name"><span class="vehicle-dot" style="background: ${v.bodyColor}"></span><span>${v.name}</span>${badge}</span>
+              <span class="vehicle-specs">Cd ${v.cd.toFixed(v.cd % 0.01 ? 3 : 2)} &bull; ${v.area.toFixed(2)} m&sup2; &bull; CdA ${(v.cd * v.area).toFixed(2)}</span>
+            </span>
+          </label>
+        </div>`;
+      }).join('');
+    }
+    vehicleOptionsEl.querySelectorAll('[data-vehicle-item]').forEach((el) => {
+      const id = el.getAttribute('data-vehicle-item');
+      el.hidden = !visibleIds.has(id);
+    });
+    const activeRadio = document.getElementById(`veh-${state.vehicleId}`);
+    if (activeRadio) activeRadio.checked = true;
+  }
+
   function updateObstacles() {
     const cfg = AeroPhysics.getVehicleConfig(state.vehicleId, getPhysicsOptions());
     solver.setObstacles(cfg.cfdPolygons);
-    tonneauWrap.hidden = cfg.id !== 'truck';
+    tonneauWrap.hidden = !cfg.polygonCovered;
     if (roofboxWrap) roofboxWrap.hidden = !cfg.roofMount;
   }
 
@@ -172,42 +225,56 @@
   }
 
   function updateComparisonTable(opts) {
-    const speeds = [35, 55, 65, 75, 85, 100];
-    const nearest = speeds.reduce((prev, cur) =>
-      Math.abs(cur - state.speedMph) < Math.abs(prev - state.speedMph) ? cur : prev
-    );
+    if (thLiveSpeed) thLiveSpeed.textContent = `Live @ ${state.speedMph} mph`;
+    const list = AeroPhysics.getFilteredVehicles(state.categoryFilter);
+    const ids = list.includes(state.vehicleId) ? list : [state.vehicleId, ...list];
+    const rows = ids
+      .map((id) => {
+        const m35 = AeroPhysics.computeMetrics(id, 35, opts);
+        const m65 = AeroPhysics.computeMetrics(id, 65, opts);
+        const m100 = AeroPhysics.computeMetrics(id, 100, opts);
+        const mLive = AeroPhysics.computeMetrics(id, state.speedMph, opts);
+        return { id, m35, m65, m100, mLive };
+      })
+      .sort((a, b) => a.mLive.cdA - b.mLive.cdA);
 
-    const rowsHtml = speeds
-      .map((mph) => {
-        const s = AeroPhysics.computeMetrics('sedan', mph, opts);
-        const rv = AeroPhysics.computeMetrics('suv', mph, opts);
-        const fs = AeroPhysics.computeMetrics('fullsize_suv', mph, opts);
-        const tr = AeroPhysics.computeMetrics('truck', mph, opts);
-        const mt = AeroPhysics.computeMetrics('motorcycle', mph, opts);
-        const sc = AeroPhysics.computeMetrics('escooter', mph, opts);
-        const scUnit = sc.config.isElectric ? 'MPGe' : 'MPG';
-        const active = mph === nearest ? ' data-active-row="true"' : '';
+    comparisonTbody.innerHTML = rows
+      .map(({ id, m35, m65, m100, mLive }) => {
+        const cfg = mLive.config;
+        const unit = cfg.isElectric ? 'MPGe' : 'MPG';
+        const active = id === state.vehicleId ? ' data-active-row="true"' : '';
+        const liveCell = state.speedMph === 0
+          ? `0.0 ${unit} &bull; 0 lbf &bull; 0.0 hp`
+          : `${mLive.mpg.toFixed(1)} ${unit} &bull; ${mLive.dragLbf.toFixed(0)} lbf &bull; ${mLive.dragHp.toFixed(1)} hp`;
         return `<tr${active}>
-          <th scope="row">${mph} mph</th>
-          <td>${s.mpg.toFixed(1)} MPG &bull; ${s.dragLbf.toFixed(0)} lbf &bull; ${s.dragHp.toFixed(1)} hp</td>
-          <td>${rv.mpg.toFixed(1)} MPG &bull; ${rv.dragLbf.toFixed(0)} lbf &bull; ${rv.dragHp.toFixed(1)} hp</td>
-          <td>${fs.mpg.toFixed(1)} MPG &bull; ${fs.dragLbf.toFixed(0)} lbf &bull; ${fs.dragHp.toFixed(1)} hp</td>
-          <td>${tr.mpg.toFixed(1)} MPG &bull; ${tr.dragLbf.toFixed(0)} lbf &bull; ${tr.dragHp.toFixed(1)} hp</td>
-          <td>${mt.mpg.toFixed(1)} MPG &bull; ${mt.dragLbf.toFixed(0)} lbf &bull; ${mt.dragHp.toFixed(1)} hp</td>
-          <td>${sc.mpg.toFixed(1)} ${scUnit} &bull; ${sc.dragLbf.toFixed(0)} lbf &bull; ${sc.dragHp.toFixed(1)} hp</td>
+          <th scope="row">
+            <button type="button" class="table-select-btn" data-select-vehicle="${id}">
+              <span class="vehicle-dot" style="background: ${cfg.bodyColor}"></span>
+              <span>${cfg.name}</span>
+            </button>
+          </th>
+          <td>${cfg.powertrain || 'Gas'}</td>
+          <td>${mLive.cd.toFixed(3)}</td>
+          <td>${mLive.area.toFixed(2)} m&sup2;</td>
+          <td>${mLive.cdA.toFixed(3)} m&sup2;</td>
+          <td>${m35.mpg.toFixed(1)} ${unit}</td>
+          <td>${m65.mpg.toFixed(1)} ${unit}</td>
+          <td>${m100.mpg.toFixed(1)} ${unit}</td>
+          <td>${liveCell}</td>
         </tr>`;
       })
       .join('');
-    comparisonTbody.innerHTML = rowsHtml;
   }
 
   function drawCharts() {
     const palette = getPalette();
     const opts = getPhysicsOptions();
+    const peerIds = AeroPhysics.getChartPeers(state.vehicleId, state.categoryFilter);
 
     AeroCharts.renderSpeedChart(mpgChartCanvas, {
       AeroPhysics,
       activeVehicleId: state.vehicleId,
+      vehicleIds: peerIds,
       speedMph: state.speedMph,
       physicsOptions: opts,
       palette,
@@ -217,6 +284,7 @@
     AeroCharts.renderSpeedChart(dragChartCanvas, {
       AeroPhysics,
       activeVehicleId: state.vehicleId,
+      vehicleIds: peerIds,
       speedMph: state.speedMph,
       physicsOptions: opts,
       palette,
@@ -834,7 +902,41 @@
   ro.observe(mpgChartCanvas);
   ro.observe(dragChartCanvas);
 
+  function selectVehicle(id) {
+    if (!AeroPhysics.VEHICLES[id]) return;
+    state.vehicleId = id;
+    renderVehicleCards();
+    updateObstacles();
+    updateTelemetry();
+  }
+
+  if (categoryTabsEl) {
+    categoryTabsEl.addEventListener('click', (ev) => {
+      const btn = ev.target.closest('[data-category]');
+      if (!btn) return;
+      const cat = btn.getAttribute('data-category');
+      state.categoryFilter = cat;
+      categoryTabsEl.querySelectorAll('[data-category]').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      const list = AeroPhysics.getFilteredVehicles(cat);
+      if (!list.includes(state.vehicleId) && list.length > 0) {
+        state.vehicleId = list[0];
+      }
+      renderVehicleCards();
+      updateObstacles();
+      updateTelemetry();
+    });
+  }
+
+  comparisonTbody.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-select-vehicle]');
+    if (!btn) return;
+    selectVehicle(btn.getAttribute('data-select-vehicle'));
+  });
+
   // Initialize solver & pre-warm 36 steps for immediate wake clarity on load
+  renderVehicleCards();
   updateObstacles();
   syncSliderVisuals();
   for (let i = 0; i < 36; i++) {

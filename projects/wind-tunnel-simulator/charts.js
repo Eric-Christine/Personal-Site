@@ -1,14 +1,18 @@
 /**
  * HiDPI Canvas Dual-Chart Renderer
- * - Chart 1: MPG Efficiency vs. Speed (15 - 100 mph) for all 4 vehicle shapes
+ * - Chart 1: MPG / MPGe Efficiency vs. Speed (15 - 100 mph) for up to 6 peer vehicles
  * - Chart 2: Aerodynamic Drag Power (hp, v^3) or Force (lbf, v^2) vs. Speed (0 - 100 mph)
- * - Supports click/drag scrubbing along the speed axis
+ * - Smart Y-axis scaling for EVs vs. Gas/Hybrids + click/drag speed scrubbing
  */
 (function (root) {
   'use strict';
 
-  function getVehicleColor(id, palette) {
-    return (palette.vehicles && palette.vehicles[id]) || '#3b82f6';
+  function getCurveColor(curveOrCfg, palette) {
+    return (
+      curveOrCfg.bodyColor ||
+      (palette.vehicles && palette.vehicles[curveOrCfg.id]) ||
+      '#3b82f6'
+    );
   }
 
   function bindScrubInteraction(canvas, minSpeed, maxSpeed, padLeft, padRight, onSpeedChange) {
@@ -42,6 +46,7 @@
     const {
       AeroPhysics,
       activeVehicleId,
+      vehicleIds,
       speedMph,
       physicsOptions,
       palette,
@@ -71,22 +76,51 @@
     const minX = kind === 'mpg' ? 15 : 0;
     const maxX = 100;
 
-    const curves = AeroPhysics.VEHICLE_ORDER.map((id) =>
+    const ids = Array.isArray(vehicleIds) && vehicleIds.length
+      ? vehicleIds
+      : AeroPhysics.getChartPeers(activeVehicleId, 'all');
+
+    const curves = ids.map((id) =>
       AeroPhysics.computeCurve(id, physicsOptions, minX, maxX, 1)
     );
 
+    const activeCurve = curves.find((c) => c.config.id === activeVehicleId) || curves[0];
+    const activeIsEv = Boolean(
+      kind === 'mpg' &&
+      activeCurve &&
+      activeCurve.config.isElectric &&
+      !(physicsOptions && physicsOptions.isolateShape)
+    );
+
     let yMax = 0;
-    const includeElectricInMpgScale =
-      kind === 'mpg' && activeVehicleId === 'escooter' && !(physicsOptions && physicsOptions.isolateShape);
-    for (const c of curves) {
-      if (kind === 'mpg' && c.config.isElectric && !includeElectricInMpgScale) continue;
-      for (const pt of c.points) {
-        const val = kind === 'mpg' ? pt.mpg : kind === 'power' ? pt.dragHp : pt.dragLbf;
-        if (val > yMax) yMax = val;
+    if (activeIsEv) {
+      let activePeak = 0;
+      for (const pt of activeCurve.points) {
+        if (pt.mpg > activePeak) activePeak = pt.mpg;
+      }
+      for (const c of curves) {
+        let curvePeak = 0;
+        for (const pt of c.points) {
+          if (pt.mpg > curvePeak) curvePeak = pt.mpg;
+        }
+        if (curvePeak <= activePeak * 1.05 && curvePeak > yMax) {
+          yMax = curvePeak;
+        }
+      }
+      yMax = Math.max(yMax, activePeak);
+    } else {
+      for (const c of curves) {
+        if (kind === 'mpg' && c.config.isElectric && !(physicsOptions && physicsOptions.isolateShape)) {
+          continue;
+        }
+        for (const pt of c.points) {
+          const val = kind === 'mpg' ? pt.mpg : kind === 'power' ? pt.dragHp : pt.dragLbf;
+          if (val > yMax) yMax = val;
+        }
       }
     }
-    const niceStep =
-      kind === 'mpg' ? (includeElectricInMpgScale ? 200 : 10) : kind === 'power' ? 25 : 100;
+
+    const niceStep = kind === 'mpg' ? (activeIsEv ? (yMax > 300 ? 200 : 25) : 10) : kind === 'power' ? 25 : 100;
     yMax = Math.max(niceStep, Math.ceil((yMax * 1.12) / niceStep) * niceStep);
 
     const xToPx = (mph) => pad.left + ((mph - minX) / (maxX - minX)) * plotW;
@@ -126,7 +160,6 @@
       ctx.fillText(`${mph} mph`, x, pad.top + plotH + 8);
     }
 
-    // 55 mph highway reference on MPG chart
     if (kind === 'mpg') {
       const refX = xToPx(55);
       ctx.save();
@@ -157,12 +190,12 @@
 
     for (const curve of ordered) {
       const isActive = curve.config.id === activeVehicleId;
-      const color = getVehicleColor(curve.config.id, palette);
+      const color = getCurveColor(curve.config, palette);
 
       ctx.save();
       ctx.strokeStyle = color;
       ctx.lineWidth = isActive ? 3 : 1.75;
-      ctx.globalAlpha = isActive ? 1 : 0.65;
+      ctx.globalAlpha = isActive ? 1 : 0.68;
       ctx.beginPath();
 
       curve.points.forEach((pt, idx) => {
@@ -186,7 +219,6 @@
       }
       ctx.restore();
 
-      // Peak MPG marker on active curve
       if (isActive && kind === 'mpg') {
         let peakPt = curve.points[0];
         for (const pt of curve.points) {
@@ -205,7 +237,6 @@
       }
     }
 
-    // Active speed cursor line + dots
     const clampedMph = Math.max(minX, Math.min(maxX, speedMph));
     const cursorX = xToPx(clampedMph);
     ctx.save();
@@ -218,11 +249,16 @@
     ctx.stroke();
     ctx.restore();
 
-    // Dots & compact readout box
-    const activeVals = AeroPhysics.VEHICLE_ORDER.map((id) => {
+    const activeVals = ids.map((id) => {
       const m = AeroPhysics.computeMetrics(id, clampedMph, physicsOptions);
       const val = kind === 'mpg' ? m.mpg : kind === 'power' ? m.dragHp : m.dragLbf;
-      return { id, name: m.config.shortName, val, isElectric: m.config.isElectric, color: getVehicleColor(id, palette) };
+      return {
+        id,
+        name: m.config.shortName,
+        val,
+        isElectric: m.config.isElectric,
+        color: getCurveColor(m.config, palette),
+      };
     });
 
     for (const item of activeVals) {
@@ -240,9 +276,8 @@
     }
     ctx.restore();
 
-    // Floating multi-vehicle legend box at top-right (or top-left for power/force curves)
     const rowH = 14;
-    const boxW = 166;
+    const boxW = 172;
     const boxH = 20 + activeVals.length * rowH;
     const boxX = kind === 'mpg' ? pad.left + plotW - boxW - 6 : pad.left + 8;
     const boxY = pad.top + 6;

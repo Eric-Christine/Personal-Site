@@ -28,124 +28,16 @@
       <h2 id="controls-heading" class="visually-hidden">Wind Tunnel Controls</h2>
       <form id="tunnel-controls" class="controls-form" aria-labelledby="controls-heading">
         <fieldset class="fieldset-clean vehicle-grid-wrap">
-          <legend class="fieldset-legend">Vehicle Shape</legend>
-          <div class="vehicle-grid" id="vehicle-options">
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-sedan" value="sedan" checked />
-              <label class="vehicle-card" for="veh-sedan">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M10 35 L10 26 L18 22 L34 20 L48 10 L76 10 L96 18 L110 21 L111 33 L103 35 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="30" cy="36" r="7" fill="currentColor"/><circle cx="90" cy="36" r="7" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-sedan)"></span>Midsize Sedan</span>
-                  <span class="vehicle-specs">Cd 0.27 &bull; 2.25 m&sup2; &bull; CdA 0.61</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-suv" value="suv" />
-              <label class="vehicle-card" for="veh-suv">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M10 34 L10 19 L18 16 L36 14 L50 7 L94 7 L107 20 L108 33 L98 35 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="29" cy="35" r="7.5" fill="currentColor"/><circle cx="90" cy="35" r="7.5" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-suv)"></span>Compact SUV (RAV4)</span>
-                  <span class="vehicle-specs">Cd 0.32 &bull; 2.65 m&sup2; &bull; CdA 0.85</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-fullsize-suv" value="fullsize_suv" />
-              <label class="vehicle-card" for="veh-fullsize-suv">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M8 34 L8 15 L32 13 L42 5 L108 5 L112 10 L113 33 L103 34 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="28" cy="35" r="8" fill="currentColor"/><circle cx="92" cy="35" r="8" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-fullsize-suv)"></span>Full-Size SUV (Tahoe)</span>
-                  <span class="vehicle-specs">Cd 0.38 &bull; 3.25 m&sup2; &bull; CdA 1.24</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-minivan" value="minivan" />
-              <label class="vehicle-card" for="veh-minivan">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M10 35 L10 24 L20 18 L34 7 L104 7 L109 12 L110 35 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="30" cy="36" r="7.5" fill="currentColor"/><circle cx="92" cy="36" r="7.5" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-minivan)"></span>Family Minivan</span>
-                  <span class="vehicle-specs">Cd 0.33 &bull; 2.85 m&sup2; &bull; CdA 0.94</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-truck" value="truck" />
-              <label class="vehicle-card" for="veh-truck">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M8 34 L8 15 L32 14 L40 6 L66 6 L66 21 L108 21 L111 16 L112 34 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="28" cy="36" r="8" fill="currentColor"/><circle cx="92" cy="36" r="8" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-truck)"></span>Pickup Truck</span>
-                  <span class="vehicle-specs">Cd 0.44 &bull; 3.35 m&sup2; &bull; CdA 1.47</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-coupe" value="coupe" />
-              <label class="vehicle-card" for="veh-coupe">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M10 35 L9 27 L17 22 L34 19 L49 10 L74 10 L96 19 L109 19 L111 22 L109 32 L102 35 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="30" cy="36" r="7" fill="currentColor"/><circle cx="89" cy="36" r="7" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-coupe)"></span>Hyundai Elantra</span>
-                  <span class="vehicle-specs">Cd 0.28 &bull; 2.12 m&sup2; &bull; CdA 0.59</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-motorcycle" value="motorcycle" />
-              <label class="vehicle-card" for="veh-motorcycle">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M26 32 L30 22 L42 17 L56 22 L80 22 L92 18 L86 28 L72 34 L42 34 Z" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                  <path d="M46 16 L54 9 L64 11 L78 17 L74 23 L54 22 Z" fill="currentColor" opacity="0.45"/>
-                  <circle cx="57" cy="9.5" r="5" fill="currentColor"/>
-                  <circle cx="34" cy="34" r="8" fill="currentColor"/><circle cx="85" cy="34" r="8" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-motorcycle)"></span>Sport Motorcyclist</span>
-                  <span class="vehicle-specs">Cd 0.62 &bull; 0.72 m&sup2; &bull; CdA 0.45</span>
-                </span>
-              </label>
-            </div>
-
-            <div>
-              <input class="visually-hidden" type="radio" name="vehicle" id="veh-escooter" value="escooter" />
-              <label class="vehicle-card" for="veh-escooter">
-                <svg class="vehicle-icon" viewBox="0 0 120 48" aria-hidden="true">
-                  <path d="M34 38 L82 38 M42 38 L37 15 L44 15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M54 38 L54 15 L66 15 L66 38 M54 19 L40 16" fill="currentColor" opacity="0.45" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                  <circle cx="60" cy="8.5" r="4.5" fill="currentColor"/>
-                  <circle cx="38" cy="39" r="4.5" fill="currentColor"/><circle cx="79" cy="39" r="4.5" fill="currentColor"/>
-                </svg>
-                <span class="vehicle-meta">
-                  <span class="vehicle-name"><span class="vehicle-dot" style="background: var(--color-escooter)"></span>E-Scooter + Rider</span>
-                  <span class="vehicle-specs">Cd 1.10 &bull; 0.68 m&sup2; &bull; CdA 0.75</span>
-                </span>
-              </label>
-            </div>
+          <legend class="fieldset-legend">Vehicle Shape (18 Profiles &bull; Select Category or Model)</legend>
+          <div class="category-tabs" id="category-tabs" role="group" aria-label="Filter vehicles by category">
+            <button type="button" class="cat-btn" data-category="all" aria-pressed="true">All (18)</button>
+            <button type="button" class="cat-btn" data-category="top10" aria-pressed="false">Top 10 US Models (10)</button>
+            <button type="button" class="cat-btn" data-category="trucks" aria-pressed="false">Trucks (6)</button>
+            <button type="button" class="cat-btn" data-category="suvs" aria-pressed="false">SUVs (6)</button>
+            <button type="button" class="cat-btn" data-category="cars" aria-pressed="false">Cars &amp; Van (4)</button>
+            <button type="button" class="cat-btn" data-category="twowheel" aria-pressed="false">2-Wheelers (2)</button>
           </div>
+          <div class="vehicle-grid" id="vehicle-options"></div>
         </fieldset>
 
         <div class="speed-row">
@@ -302,16 +194,18 @@
     <section class="panel" aria-label="Speed Comparison Table">
       <div class="table-wrap">
         <table class="comparison-table">
-          <caption>Speed Impact Across Cars, SUVs, Motorcyclist &amp; E-Scooter (12,000 mi/yr @ $3.50/gal)</caption>
+          <caption>Vehicle Aerodynamic &amp; Fuel Economy Comparison (Click any vehicle to test in tunnel)</caption>
           <thead>
             <tr>
-              <th scope="col">Speed</th>
-              <th scope="col">Sedan</th>
-              <th scope="col">Compact SUV (RAV4)</th>
-              <th scope="col">Full-Size SUV</th>
-              <th scope="col">Pickup Truck</th>
-              <th scope="col">Motorcyclist</th>
-              <th scope="col">E-Scooter + Rider</th>
+              <th scope="col">Vehicle</th>
+              <th scope="col">Powertrain</th>
+              <th scope="col">Cd</th>
+              <th scope="col">Area</th>
+              <th scope="col">CdA</th>
+              <th scope="col">35 mph</th>
+              <th scope="col">65 mph</th>
+              <th scope="col">100 mph</th>
+              <th scope="col" id="th-live-speed">Live @ 65 mph</th>
             </tr>
           </thead>
           <tbody id="comparison-tbody"></tbody>
